@@ -4,12 +4,12 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{todonotes}
+\usepackage{lscape}
 \author{Pierre Gerard - Matteo Marra - Bruno Rocha Pereira}
 \title{Given One \\ Intelligent Picture Browser \\ Requirements and Analysis report}
 \begin{document}
 
 \maketitle
-
 \section{Introduction}
 New generation user interfaces are developing day by day, with new tools, devices and different use cases showing up as the common users start using those devices everyday.
 Of those devices, Virtual Reality is expanding as devices get more affordable and many research team started working on it. 
@@ -31,24 +31,33 @@ The aim of this project will be to solve a real life problem that we all experie
 
 The resolution of the problem will take advantage of new opportunities in human-computer interaction such as Virtual Reality and voice recognition. It will also take advantage of advance in the state of the art of image recognition using a neural network. In this section, we will explore the differents requirements needed for this project.
 
-\section{Data requirements}
+\subsection{Data requirements}
 
 The data this project will use mainly consist in untagged images sets too big to be processed by an human. They will preferably contain recognizable  and typical elements and not be blurred or in bad shape. Microscopic pictures will be avoided since the recognition system will be unable to correctly tag it. These sets of images will contain a maximum amount of elements but while still being easy to store. 
 The system is not designed for a particular purpose of pictures, meaning that all kind of pictures can be stored. The limitation on the amount of pictures is given by the storage memory that the computer in use allows.
 
 The tags the system will recognize are simple tags (like animals, person, sunset, etc.), and not particular tags, like a specific person or a specific type of car. There are about 1000 tags in total.
 
-\subsection{Environmental requirements (context of use)\todo{}}
+\subsection{Environmental requirements (context of use)}
 
 \begin{itemize}
-\item physical environment
-- lighting, noise, movement, dust, ...
-\item social environment
-- synchronous or asynchronous sharing of data, co-located or distributed, ...
-\item organisational environment
-- user support, resources for training, how hierarchical is the management, ...
-\item technical environment
-- technologies the product will run on, compatibility, technological limitations, ...
+\item \textbf{Physical environment}: space is needed for the user to freely move in the Virtual Reality environment.
+\item \textbf{Social environment}:
+The system works in an offline, centralized mode. There is no need to share data such as pictures or tags. If users want to share pictures, they have to do it using an external application.
+\item \textbf{Organisational environment}
+- user support, resources for training, how hierarchical is the management, ... \todo{bho!}
+\item \textbf{Technical environment}
+The system runs on \textit{HTC Vive}, and it needs a computer with enough computational power and a supported GPU in order to make the Virtual Reality environment work properly. 
+It is possible that the system will be compatible with other Virtual Reality devices that use the same engine as \textit{HTC Vive}.
+\end{itemize}
+
+\subsection{Developing technologies}
+
+The application will be built using the following developing tools:
+\begin{itemize}
+\item \textbf{Unity Engine 5.4} for the application graphics and code.
+\item \textbf{TensorFlow} as neural network algorithm for tagging pictures.
+\todo{add maybe library we use for speech recognition?}
 \end{itemize}
 
 \section{User characteristics}
@@ -58,9 +67,9 @@ The usability of this project is going to be straightforward and will not requir
 Having a regular access to technologies and computers will be a plus. 
 Other than in the indicated case, everybody with access to the specified Virtual Reality device, and with knowledge on how to use it, will be able to use all the functionalities of the application.
 
-
+\begin{landscape}
 \section{Gantt chart}
-
+\end{landscape}
 \section{Conclusions}
 
 \end{document}
