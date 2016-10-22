@@ -11,29 +11,31 @@
 \maketitle
 
 \section{Introduction}
-New generation user interfaces are developing day by day, with new tools, devices and different use cases showing up as the common users start using those devices everyday.
-Of those devices, Virtual Reality is expanding as devices get more affordable and many research team started working on it. 
+New generation user interfaces are developing day by day, with new tools, devices and different use cases showing up as the common users start using those devices on a everyday basis.
+Of those devices, Virtual Reality sets are expanding as those devices get more affordable and many research team started working on it. 
 
-Imagining a future where we would use Virtual Reality on common basis, we thought about what an user could need that doesn't exist right now, and how to implement it to make the user feel comfortable in this totally new environment.
+Our brainstorming led to us imagining a future where we would use Virtual Reality on common basis, we thought about what an user would like to have and that doesn't exist yet, and how to implement it to make the user feel comfortable in this totally new environment. 
 
-Imagine to have a collection of pictures you took on a trip, or on many trips. Imagine it now in a Virtual Reality environment, with pictures all over the place, like a 3D desk full of pictures not organized in album.
+We imagine you having a collection of pictures you took on a trip, or on many trips. Imagine it now in a Virtual Reality environment, with pictures all over the place, like a 3D desk full of pictures not organized in album.
 
-How can we use the Virtual Reality Environment and its computational power to make this collection of pictures organize and easily navigable?
-The more user-friendly way is to have a system that recognizes your pictures, tagging them according to what is in the picture (e.g. a Dog, a sunset, ...), and allows you to query them via speech recognition. This query will filter in the environment the pictures you are interested in, and allow you to navigate through them.
+How can we use the Virtual Reality Environment and other computational power to make this collection of pictures organize and easily navigable?
+The more user-friendly way we though about was to have a system that recognizes your pictures, tagging them according to what is in the picture (e.g. a Dog, a sunset, ...), and allows you to query them via speech recognition. This query will filter in the environment the pictures you are interested in, and allow you to navigate through them.
 
 This document includes the analysis of the requirements for the \textit{Intelligent Picture Browser} project, and is structured in the following way: Problem to be solved, Resolution requirements, Gantt chart and conclusions.
 
 \section{Problem to be solved}
 
-The aim of this project will be to solve a real life problem that we all experienced. Since the numeric revolution, humans tend to take a ton of pictures. It is especially true during their holidays, usually coming back with thousands of pictures. The problem that arise then is that human don't usually have a mean to explore them all other than browsing through them one by one. So, the idea for the project is to create a \textit{Intelligent Picture Browser (IPB)} to fill that void.
+The aim of this project will be to solve a real life problem that we all experienced.
+
+Since the numeric revolution, humans tend to take a ton of pictures. It is especially true during their holidays, usually coming back with thousands of pictures. The problem that arise then is that human don't usually have a mean to explore them all other than browsing through them one by one. So, the idea for the project is to create a \textit{Intelligent Picture Browser (IPB)} to fill that void.
  
 \section{Resolution requirements}
 
-The resolution of the problem will take advantage of new opportunities in human-computer interaction such as Virtual Reality and voice recognition. It will also take advantage of advance in the state of the art of image recognition using a neural network. In this section, we will explore the differents requirements needed for this project.
+As mentioned above, the resolution of the problem will take advantage of new opportunities in human-computer interaction such as Virtual Reality and voice recognition. It will also take advantage of advance in the state of the art of image recognition using a neural network. In this section, we will explore the different requirements needed for this project.
 
-\section{Data requirements}
+\subsection{Data requirements}
 
-The data this project will use mainly consist in untagged images sets too big to be processed by an human. They will preferably contain recognizable  and typical elements and not be blurred or in bad shape. Microscopic pictures will be avoided since the recognition system will be unable to correctly tag it. These sets of images will contain a maximum amount of elements but while still being easy to store. 
+The data this project will use mainly consist in untagged images sets too big to be processed by an human without considerable effort. They will preferably contain recognizable  and typical elements and not be blurred or in bad shape. Microscopic pictures will be avoided since the recognition system will be unable to correctly tag it. These sets of images will contain a maximum amount of elements but while still being easy to store. 
 The system is not designed for a particular purpose of pictures, meaning that all kind of pictures can be stored. The limitation on the amount of pictures is given by the storage memory that the computer in use allows.
 
 The tags the system will recognize are simple tags (like animals, person, sunset, etc.), and not particular tags, like a specific person or a specific type of car. There are about 1000 tags in total.
@@ -51,13 +53,21 @@ The tags the system will recognize are simple tags (like animals, person, sunset
 - technologies the product will run on, compatibility, technological limitations, ...
 \end{itemize}
 
-\section{User characteristics}
+\subsection{User characteristics}
 
 The usability of this project is going to be straightforward and will not require any particular skill, origin or educational background. However, since the final setup will combine vision and voice recognition, it will unfortunately not be accessible to individuals with blindness and mutism. It will also be harder to access to people with colorblindness. 
 
 Having a regular access to technologies and computers will be a plus. 
 Other than in the indicated case, everybody with access to the specified Virtual Reality device, and with knowledge on how to use it, will be able to use all the functionalities of the application.
 
+\subsection{Usability goals}
+
+The usability of this project is going to be straightforward and will not require any particular skill or educational background. However having a regular access to technologies and computers will be a plus. 
+
+
+\subsection{User experience goals}
+
+\section{Resolution}
 
 \section{Gantt chart}
 
