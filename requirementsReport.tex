@@ -16,22 +16,15 @@ Of those devices, Virtual Reality sets are expanding as those devices get more a
 
 Our brainstorming led to us imagining a future where we would use Virtual Reality on common basis, we thought about what an user would like to have and that doesn't exist yet, and how to implement it to make the user feel comfortable in this totally new environment. 
 
-We imagine you having a collection of pictures you took on a trip, or on many trips. Imagine it now in a Virtual Reality environment, with pictures all over the place, like a 3D desk full of pictures not organized in album.
-
-How can we use the Virtual Reality Environment and other computational power to make this collection of pictures organize and easily navigable?
-The more user-friendly way we though about was to have a system that recognizes your pictures, tagging them according to what is in the picture (e.g. a Dog, a sunset, ...), and allows you to query them via speech recognition. This query will filter in the environment the pictures you are interested in, and allow you to navigate through them.
-
-This document includes the analysis of the requirements for the \textit{Intelligent Picture Browser} project, and is structured in the following way: Problem to be solved, Resolution requirements, Gantt chart and conclusions.
+We imagine a user having a collection of pictures that he took on a trip, or on many trips. The system will offer them in a Virtual Reality environment, with pictures all over the place, allowing him to browse them intelligently.
 
 \section{Problem to be solved}
-
-The aim of this project will be to solve a real life problem that we all experienced.
 
 Since the numeric revolution, humans tend to take a ton of pictures. It is especially true during their holidays, usually coming back with thousands of pictures. The problem that arise then is that human don't usually have a mean to explore them all other than browsing through them one by one. So, the idea for the project is to create a \textit{Intelligent Picture Browser (IPB)} to fill that void.
  
 \section{Resolution requirements}
 
-As mentioned above, the resolution of the problem will take advantage of new opportunities in human-computer interaction such as Virtual Reality and voice recognition. It will also take advantage of advance in the state of the art of image recognition using a neural network. In this section, we will explore the different requirements needed for this project.
+The resolution of the problem will take advantage of new opportunities in human-computer interaction such as Virtual Reality and voice recognition. It will also take advantage of advance in the state of the art of image recognition using a neural network. In this section, we will explore the different requirements needed for this project.
 
 \subsection{Data requirements}
 
@@ -75,20 +68,19 @@ We can divide this application in three building blocks :
 	\item A virtual-reality environment.
 \end{itemize}
 
+The image tagging system will use a deep-neural network. To avoid spending too much time on that part and because research on that field is quite advanced \todo{cite}, we will use an existing open source software library called \textit{TensorFlow} \todo{cite}. We will also use a trained neural network \todo{cite}
 
-The application will be built using the following developing tools:
-\begin{itemize}
-\item \textbf{Unity Engine 5.4} for the application graphics and code.
-\item \textbf{TensorFlow} as neural network algorithm for tagging pictures.
-\todo{add maybe library we use for speech recognition?}
-\end{itemize}
+The voice recognition system \todo{voice}
 
-\subsection{Technologies}
+The VR will be built using the following \textit{Unity Engine 5.4} \todo{cite} for the application graphics and code. \todo{moar}
 
+\subsection{Validation}
 
 \begin{landscape}
 \section{Gantt chart}
+
+\todo{gantchart}
+
 \end{landscape}
-\section{Conclusions}
 
 \end{document}
