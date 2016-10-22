@@ -5,6 +5,7 @@
 \usepackage{amssymb}
 \usepackage{todonotes}
 \usepackage{lscape}
+\usepackage{afterpage}
 \author{Pierre Gerard - Matteo Marra - Bruno Rocha Pereira}
 \title{Given One \\ Intelligent Picture Browser \\ Requirements and Analysis report}
 \begin{document}
@@ -70,17 +71,22 @@ We can divide this application in three building blocks :
 
 The image tagging system will use a deep-neural network. To avoid spending too much time on that part and because research on that field is quite advanced \todo{cite}, we will use an existing open source software library called \textit{TensorFlow} \todo{cite}. We will also use a trained neural network \todo{cite}
 
-The voice recognition system \todo{voice}
+The voice recognition system will probably also use a existing library such as the one written by microsoft\todo{cite}
 
 The VR will be built using the following \textit{Unity Engine 5.4} \todo{cite} for the application graphics and code. \todo{moar}
 
-\subsection{Validation}
+The idea will be to join all the building block together as soon as possible to create a first prototype for testing.
 
+\subsection{Evaluation of the design}
+
+We will ask for continuous feedback from tester to go from prototype to refined prototype. In that way, we will incrementally improve design to reach a final product.
+
+The evaluation will be mainly field study using other student. We do believe that, since the technologies we use are quite hype and popular, it will be easy to find willing student for testing.
+
+\afterpage{
 \begin{landscape}
 \section{Gantt chart}
-
-\todo{gantchart}
-
+\includegraphics[scale=0.8,angle=0]{static/Gantt-chart.pdf}
 \end{landscape}
-
+}
 \end{document}
