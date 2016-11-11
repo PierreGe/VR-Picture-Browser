@@ -61,7 +61,19 @@ public class Main : MonoBehaviour
     public void onTagRecognised(string tag)
     {
         HashSet<Picture> list = pM.getPicturesForATag(tag);
-        loadPictures(list);
+        if (list != null)
+        {
+            loadPictures(list);
+        }
+        else
+        {
+            w.Clear();
+            foreach (GameObject o in planes)
+            {
+                Destroy(o);
+            }
+            planes.Clear();
+        }
        
     }
 
