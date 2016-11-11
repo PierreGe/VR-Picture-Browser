@@ -9,44 +9,17 @@ public class Main : MonoBehaviour
 	List<WWW> w;
 	int index;
 	List<GameObject> planes;
+    int frames = 0;
+    PicturesManager pM;
 
+    public static Main scriptInstance;
 	// Use this for initialization
 	void Start ()
 	{
-		string filename = @"Assets/data/100001.jpg";
-		Debug.Log (Path.GetFullPath(filename));
 		const string jsonPath = "Assets/classification/resultimgobj.json";
-		PicturesManager pM = PicturesLoader.parseJson (jsonPath);
-		HashSet<Picture> list = pM.getPicturesForATag ("valley");
-
-
-		w = new List<WWW>();
-		planes = new List<GameObject>();
-		index = 0;
-
-		//        var info = new DirectoryInfo("B:\\Images\\Dossier");
-		//        FileInfo[] fileInfo = info.GetFiles();
-		//        IEnumerable<string> fullNames = fileInfo.Select(file => file.FullName);
-
-
-		Debug.Log ("List " + pM.pictureDictionary);
-
-		float indexx = 0;
-		float indexy = 10;
-		foreach (Picture picture in list)
-		{
-			planes.Add(GameObject.CreatePrimitive(PrimitiveType.Plane));
-			planes[index].transform.position = new Vector3(indexx, indexy, 0);
-			planes[index].transform.Rotate(new Vector3(90, 0, 0));
-			loadTexture(picture.getPath());
-			indexx += 20;
-			index++;
-			if (indexx >= 100) {
-				indexx = 0;
-				indexy += 20;
-			} 
-		} 
-	}
+		this.pM = PicturesLoader.parseJson (jsonPath);
+        scriptInstance = this;
+    }
 
 	private void resize(GameObject theGameObject, float newSizex, float newSizey)
 	{
@@ -71,15 +44,44 @@ public class Main : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		for (int i = 0; i < w.Count; i++)
-		{
-			if (w[i].isDone)
-			{
-				planes[i].GetComponent<Renderer>().material.mainTexture = w[i].texture;
-			}
 
-		}
 		
 	}
+
+    public void onTagRecognised(string tag)
+    {
+        HashSet<Picture> list = pM.getPicturesForATag(tag);
+        w = new List<WWW>();
+        planes = new List<GameObject>();
+        index = 0;
+
+        float indexx = 0;
+        float indexy = 10;
+        planes.Clear();
+        foreach (Picture picture in list)
+        {
+            planes.Add(GameObject.CreatePrimitive(PrimitiveType.Plane));
+            planes[index].transform.position = new Vector3(indexx, indexy, 0);
+            planes[index].transform.Rotate(new Vector3(90, 0, 0));
+            loadTexture(picture.getPath());
+            indexx += 20;
+            index++;
+            if (indexx >= 100)
+            {
+                indexx = 0;
+                indexy += 20;
+            }
+        }
+        int i = 0;
+        while ( i < w.Count)
+        {
+            if (w[i].isDone)
+            {
+                planes[i].GetComponent<Renderer>().material.mainTexture = w[i].texture;
+                i++;
+            }
+
+        }
+    }
 }
 

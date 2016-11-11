@@ -31,7 +31,6 @@ namespace Assets
                         foreach (String s in splitted)
                         {
                             picturesManager.addPictureForTag(name, s);
-							Debug.Log (name);
                         }
                     }
                 }
