@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 using Newtonsoft.Json.Linq;
 using System.IO;
 
@@ -6,10 +7,9 @@ namespace Assets
 {
     public class PicturesLoader
     {
-        private const string jsonPath = "C:/Users/Matteo/Documents/test.json";
         private const double LIMIT = 0.59;
 
-        public static PicturesManager parseJson(string path = jsonPath)
+        public static PicturesManager parseJson(string path)
         {
             string jsonFile = File.ReadAllText(path);
             JObject obj = JObject.Parse(jsonFile);
@@ -31,6 +31,7 @@ namespace Assets
                         foreach (String s in splitted)
                         {
                             picturesManager.addPictureForTag(name, s);
+							Debug.Log (name);
                         }
                     }
                 }

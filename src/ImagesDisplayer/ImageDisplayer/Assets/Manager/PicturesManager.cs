@@ -8,7 +8,7 @@ namespace Assets
     public class PicturesManager
     {
         //Dictionary containing as key the tag and as value the set with all the pictures associated to that tag
-        private Dictionary<String, HashSet<Picture>> pictureDictionary = new Dictionary<string, HashSet<Picture>>();
+        public Dictionary<String, HashSet<Picture>> pictureDictionary = new Dictionary<string, HashSet<Picture>>();
 
         public void addPicture(string path, HashSet<string> tags)
         {
