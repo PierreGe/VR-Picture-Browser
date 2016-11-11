@@ -76,7 +76,6 @@ public class Main : MonoBehaviour
         index = 0;
         float indexx = 0;
         float indexy = 10;
-        Debug.Log(list.Count);
         foreach (Picture picture in list)
         {
             planes.Add(GameObject.CreatePrimitive(PrimitiveType.Plane));
