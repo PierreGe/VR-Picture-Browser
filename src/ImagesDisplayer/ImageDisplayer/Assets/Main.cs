@@ -3,12 +3,13 @@ using System.Collections;
 using Assets;
 using System.IO;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 public class Main : MonoBehaviour
 {
-	List<WWW> w;
+    List<WWW> w = new List<WWW>();
 	int index;
-	List<GameObject> planes;
+    List<GameObject> planes = new List<GameObject>();
     int frames = 0;
     PicturesManager pM;
 
@@ -19,6 +20,15 @@ public class Main : MonoBehaviour
 		const string jsonPath = "Assets/classification/resultimgobj.json";
 		this.pM = PicturesLoader.parseJson (jsonPath);
         scriptInstance = this;
+        /*HashSet<Picture> selectedPictures = new HashSet<Picture>();
+        var it = PicturesManager.pictures.GetEnumerator();
+        for(int i = 0; i < 30; i++)
+        {
+            selectedPictures.Add(it.Current);
+            Debug.Log(it.Current.getPath());
+            it.MoveNext();
+        }
+        loadPictures(selectedPictures);*/
     }
 
 	private void resize(GameObject theGameObject, float newSizex, float newSizey)
@@ -38,7 +48,7 @@ public class Main : MonoBehaviour
 
 	private void loadTexture(string filename)
 	{
-		string fullPath = "file://" + Path.GetFullPath(@"Assets/data/") + filename ;
+		string fullPath = "file://" + Path.GetFullPath(@"data/") + filename ;
 		w.Add(new WWW(fullPath));
 	}
 	// Update is called once per frame
@@ -51,13 +61,22 @@ public class Main : MonoBehaviour
     public void onTagRecognised(string tag)
     {
         HashSet<Picture> list = pM.getPicturesForATag(tag);
-        w = new List<WWW>();
-        planes = new List<GameObject>();
-        index = 0;
+        loadPictures(list);
+       
+    }
 
+    private void loadPictures(HashSet<Picture> list)
+    {
+        w.Clear();
+        foreach (GameObject o in planes)
+        {
+            Destroy(o);
+        }
+        planes.Clear();
+        index = 0;
         float indexx = 0;
         float indexy = 10;
-        planes.Clear();
+        Debug.Log(list.Count);
         foreach (Picture picture in list)
         {
             planes.Add(GameObject.CreatePrimitive(PrimitiveType.Plane));
@@ -73,7 +92,7 @@ public class Main : MonoBehaviour
             }
         }
         int i = 0;
-        while ( i < w.Count)
+        while (i < w.Count)
         {
             if (w[i].isDone)
             {
