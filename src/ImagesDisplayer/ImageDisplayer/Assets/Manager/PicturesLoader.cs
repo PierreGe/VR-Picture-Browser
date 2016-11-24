@@ -7,7 +7,7 @@ namespace Assets
 {
     public class PicturesLoader
     {
-        private const double LIMIT = 0.59;
+        private const double LIMIT = 0.35;
 
         public static PicturesManager parseJson(string path)
         {

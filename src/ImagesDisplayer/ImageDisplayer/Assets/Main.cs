@@ -4,6 +4,7 @@ using Assets;
 using System.IO;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System;
 
 public class Main : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class Main : MonoBehaviour
     List<GameObject> planes = new List<GameObject>();
     int frames = 0;
     PicturesManager pM;
+    HashSet<Picture> currentPictures = new HashSet<Picture>();
+    bool waitForAnd = false;
+    bool waitForOr = false;
 
     public static Main scriptInstance;
 	// Use this for initialization
@@ -46,7 +50,17 @@ public class Main : MonoBehaviour
 
 	}
 
-	private void loadTexture(string filename)
+    public void onAndRecognised()
+    {
+        waitForAnd = true;
+    }
+
+    public void onOrRecognised()
+    {
+        waitForOr = true;
+    }
+
+    private void loadTexture(string filename)
 	{
 		string fullPath = "file://" + Path.GetFullPath(@"data/") + filename ;
 		w.Add(new WWW(fullPath));
@@ -60,10 +74,22 @@ public class Main : MonoBehaviour
 
     public void onTagRecognised(string tag)
     {
-        HashSet<Picture> list = pM.getPicturesForATag(tag);
-        if (list != null)
+        if (waitForOr)
         {
-            loadPictures(list);
+            currentPictures.UnionWith(pM.getPicturesForATag(tag));
+            waitForOr = false;
+        } else if (waitForAnd)
+        {
+            currentPictures.IntersectWith(pM.getPicturesForATag(tag));
+            waitForAnd = false;
+        }
+        else
+        {
+            currentPictures = pM.getPicturesForATag(tag);
+        }
+        if (currentPictures != null)
+        {
+            loadPictures(currentPictures);
         }
         else
         {
@@ -88,12 +114,19 @@ public class Main : MonoBehaviour
         index = 0;
         float indexx = 0;
         float indexy = 10;
+        int i = 0;
         foreach (Picture picture in list)
         {
             planes.Add(GameObject.CreatePrimitive(PrimitiveType.Plane));
             planes[index].transform.position = new Vector3(indexx, indexy, 0);
             planes[index].transform.Rotate(new Vector3(90, 0, 0));
             loadTexture(picture.getPath());
+            while (!w[i].isDone)
+            {
+
+            }
+            planes[i].GetComponent<Renderer>().material.mainTexture = w[i].texture;
+            i++;
             indexx += 20;
             index++;
             if (indexx >= 100)
@@ -102,8 +135,8 @@ public class Main : MonoBehaviour
                 indexy += 20;
             }
         }
-        int i = 0;
-        while (i < w.Count)
+        //int i = 0;
+        /*while (i < w.Count)
         {
             if (w[i].isDone)
             {
@@ -111,7 +144,7 @@ public class Main : MonoBehaviour
                 i++;
             }
 
-        }
+        }*/
     }
 }
 

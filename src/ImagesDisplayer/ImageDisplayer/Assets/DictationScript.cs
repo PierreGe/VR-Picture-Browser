@@ -13,7 +13,9 @@ public class DictationScript : MonoBehaviour
 
     void Start()
     {
-        string[] tags = new string[(Assets.PicturesManager.pictureDictionary).Keys.Count];
+        string[] tags = new string[(Assets.PicturesManager.pictureDictionary).Keys.Count+2];
+        tags[tags.Length-1] = "and";
+        tags[tags.Length - 2] = "or";
         (Assets.PicturesManager.pictureDictionary).Keys.CopyTo(tags, 0);
         for (int i = 0; i < tags.Length; i++)
         {
@@ -22,7 +24,7 @@ public class DictationScript : MonoBehaviour
                 testCalled();
             });
         }
-        keywordRecognizer = new KeywordRecognizer(tags);
+        keywordRecognizer = new KeywordRecognizer(tags, ConfidenceLevel.Low);
         keywordRecognizer.OnPhraseRecognized += KeywordRecognizedOnPhraseRecognized;
         keywordRecognizer.Start();
         print(keywordRecognizer.IsRunning);
@@ -31,7 +33,16 @@ public class DictationScript : MonoBehaviour
     void KeywordRecognizedOnPhraseRecognized(PhraseRecognizedEventArgs args)
     {
         print("recognized " + args.text);
-        Main.scriptInstance.onTagRecognised(args.text);
+        if (args.text.Equals("and"))
+        {
+            Main.scriptInstance.onAndRecognised();
+        } else if (args.text.Equals("or"))
+        {
+            Main.scriptInstance.onOrRecognised();
+        } else
+        {
+            Main.scriptInstance.onTagRecognised(args.text);
+        }
     }
 
     void testCalled()

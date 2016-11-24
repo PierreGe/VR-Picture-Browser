@@ -42,7 +42,15 @@ namespace Assets
         {
             HashSet<Picture> value = null;
             pictureDictionary.TryGetValue(tag, out value);
-            return value;
+            HashSet<Picture> returnValue = new HashSet<Picture>();
+            if (value != null)
+            {
+                foreach (Picture p in value)
+                {
+                    returnValue.Add(p);
+                }
+            }
+            return returnValue;
         }
     }
 }
