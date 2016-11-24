@@ -24,15 +24,15 @@ public class Main : MonoBehaviour
 		const string jsonPath = "Assets/classification/resultimgobj.json";
 		this.pM = PicturesLoader.parseJson (jsonPath);
         scriptInstance = this;
-        /*HashSet<Picture> selectedPictures = new HashSet<Picture>();
-        var it = PicturesManager.pictures.GetEnumerator();
-        for(int i = 0; i < 30; i++)
-        {
-            selectedPictures.Add(it.Current);
-            Debug.Log(it.Current.getPath());
-            it.MoveNext();
-        }
-        loadPictures(selectedPictures);*/
+//        HashSet<Picture> selectedPictures = new HashSet<Picture>();
+//        var it = PicturesManager.pictures.GetEnumerator();
+//        for(int i = 0; i < 30; i++)
+//        {
+//            selectedPictures.Add(it.Current);
+//            Debug.Log(it.Current.getPath());
+//            it.MoveNext();
+//        }
+//		loadPictures(pM.getPicturesForATag("valley"));
     }
 
 	private void resize(GameObject theGameObject, float newSizex, float newSizey)
@@ -111,32 +111,44 @@ public class Main : MonoBehaviour
             Destroy(o);
         }
         planes.Clear();
-        index = 0;
-        float indexx = 0;
-        float indexy = 10;
-        int i = 0;
-        foreach (Picture picture in list)
-        {
-            planes.Add(GameObject.CreatePrimitive(PrimitiveType.Plane));
-            planes[index].transform.position = new Vector3(indexx, indexy, 0);
-            planes[index].transform.Rotate(new Vector3(90, 0, 0));
-            loadTexture(picture.getPath());
-            while (!w[i].isDone)
-            {
 
-            }
-            planes[i].GetComponent<Renderer>().material.mainTexture = w[i].texture;
-            i++;
+		float sqrt2 = Mathf.Sqrt (2)/2; 
+		float size = 20;
+		float[,] indexes = {
+			{0,size,90,0,0},
+			{size*sqrt2,size*sqrt2,90,45,0},
+			{-size*sqrt2,size*sqrt2, 90, -45, 0},
+			{size,0, 90, 90, 0},
+			{-size,0, 90, -90, 0},
+			{size*sqrt2,-size*sqrt2, 90, 135, 0},
+			{-size*sqrt2,-size*sqrt2, 90, -135, 0},
+			{0,-size,90,180,0}
+		};
+		index = 0;
+		int current = 0;
+		int level = 0;
+        foreach (Picture picture in list)
+		{
+			if (current == 8)
+			{
+				current = 0;
+				level ++;
+			}
+			Debug.Log (current);
+			float indexx = indexes [current,0];
+			float indexy = level*12 + 5;
+			float indexz = indexes [current, 1];
+
+            planes.Add(GameObject.CreatePrimitive(PrimitiveType.Plane));
+			planes[index].transform.position = new Vector3(indexx, indexy, indexz);
+			planes [index].transform.Rotate (new Vector3 (indexes [current,2], 180 + indexes [current,3], indexes [current,4]));
+            loadTexture(picture.getPath());
             indexx += 20;
-            index++;
-            if (indexx >= 100)
-            {
-                indexx = 0;
-                indexy += 20;
-            }
+			current++;
+			index++;
         }
-        //int i = 0;
-        /*while (i < w.Count)
+        int i = 0;
+        while (i < w.Count)
         {
             if (w[i].isDone)
             {
@@ -144,7 +156,7 @@ public class Main : MonoBehaviour
                 i++;
             }
 
-        }*/
+        }
     }
 }
 
