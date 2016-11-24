@@ -134,7 +134,6 @@ public class Main : MonoBehaviour
 				current = 0;
 				level ++;
 			}
-			Debug.Log (current);
 			float indexx = indexes [current,0];
 			float indexy = level*12 + 5;
 			float indexz = indexes [current, 1];
