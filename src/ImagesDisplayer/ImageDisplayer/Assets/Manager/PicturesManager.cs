@@ -11,11 +11,13 @@ namespace Assets
         //Dictionary containing as key the tag and as value the set with all the pictures associated to that tag
         public static Dictionary<String, HashSet<Picture>> pictureDictionary = new Dictionary<string, HashSet<Picture>>();
 
-        public void addPicture(string path, HashSet<string> tags)
+        public void addPicture(string path, String[] tags)
         {
+            Picture p = new Picture(path);
             foreach(string tag in tags){
-                addPictureForTag(path, tag);
+                addPictureForTag(p, tag);
             }
+            p.setTags(tags);
         }
 
         public void addPictureForTag(string path, string tag)
