@@ -5,7 +5,6 @@ using System.IO;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System;
-using System.Linq;
 
 public class Main : MonoBehaviour
 {
@@ -121,10 +120,11 @@ public class Main : MonoBehaviour
                 Debug.Log(fwd);
                 Vector3 cameraPos = Camera.main.transform.position;
                 if (currentSelected) {
-                    currentSelected.transform.position -= Vector3.MoveTowards(currentSelected.transform.position, new Vector3(cameraPos.x, currentSelected.transform.position.y, cameraPos.z), (float)0.01);
+                    currentSelected.transform.localScale -= new Vector3((float) 0.2,0, (float)0.2); 
                 }
 
-                target.transform.position += Vector3.MoveTowards(target.transform.position, new Vector3(cameraPos.x, target.transform.position.y, cameraPos.z), (float)0.01);
+                target.transform.localScale += new Vector3((float)0.2, 0, (float)0.2);
+     
                 currentSelected = target;
 
             }
@@ -134,7 +134,7 @@ public class Main : MonoBehaviour
             if (currentSelected)
             {
                 Vector3 cameraPos = Camera.main.transform.position;
-                currentSelected.transform.position -= Vector3.MoveTowards(currentSelected.transform.position, new Vector3(cameraPos.x, currentSelected.transform.position.y, cameraPos.z), (float)0.01);
+                currentSelected.transform.localScale -= new Vector3((float)0.2, 0, (float)0.2);
                 currentSelected = null;
             }
         }
