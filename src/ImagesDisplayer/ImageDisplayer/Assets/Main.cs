@@ -5,11 +5,12 @@ using System.IO;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System;
+using System.Linq;
 
 public class Main : MonoBehaviour
 {
     List<WWW> w = new List<WWW>();
-	int index;
+    int index;
     List<GameObject> planes = new List<GameObject>();
     List<GameObject> suggestions = new List<GameObject>();
     int frames = 0;
@@ -17,7 +18,10 @@ public class Main : MonoBehaviour
     HashSet<Picture> currentPictures = new HashSet<Picture>();
     bool waitForAnd = false;
     bool waitForOr = false;
-    GameObject currentSelected = null;
+
+    public GameObject currentSelected = null;
+
+
 
     float scale = 15;
 
@@ -27,7 +31,9 @@ public class Main : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		const string jsonPath = "Assets/classification/resultimgobj.json";
+
+
+        const string jsonPath = "Assets/classification/resultimgobj.json";
 		this.pM = PicturesLoader.parseJson (jsonPath);
         scriptInstance = this;
         //        HashSet<Picture> selectedPictures = new HashSet<Picture>();
@@ -44,6 +50,7 @@ public class Main : MonoBehaviour
         List<KeyValuePair<String, HashSet<Picture>>> dic = PicturesManager.pictureDictionary.ToList();
         dic.Sort((pair1, pair2) => -(pair1.Value.Count.CompareTo(pair2.Value.Count)));
         showSuggestions(dic.Take(5).Select(s => s.Key).ToArray());
+
     }
 
 	private void resize(GameObject theGameObject, float newSizex, float newSizey)
@@ -62,6 +69,14 @@ public class Main : MonoBehaviour
 		theGameObject.transform.localScale = rescale;
 
 	}
+
+    private void onClick(object sender, ClickedEventArgs e) {
+        if (currentSelected)
+        {
+            Debug.Log("CLICK CLICK MOFO");
+        }
+
+    }
 
     public void onAndRecognised()
     {
@@ -91,12 +106,7 @@ public class Main : MonoBehaviour
 
     public void onResetRecognised()
     {
-        w.Clear();
-        foreach (GameObject o in planes)
-        {
-            Destroy(o);
-        }
-        planes.Clear();
+        this.destroyPlanes();
         scale = 15;
         waitForAnd = false;
         waitForOr = false;
@@ -117,7 +127,6 @@ public class Main : MonoBehaviour
             GameObject target = hit.collider.gameObject;
             if (target != currentSelected)
             {
-                Debug.Log(fwd);
                 Vector3 cameraPos = Camera.main.transform.position;
                 if (currentSelected) {
                     currentSelected.transform.localScale -= new Vector3((float) 0.2,0, (float)0.2); 
@@ -134,10 +143,11 @@ public class Main : MonoBehaviour
             if (currentSelected)
             {
                 Vector3 cameraPos = Camera.main.transform.position;
-                currentSelected.transform.localScale -= new Vector3((float)0.2, 0, (float)0.2);
+                currentSelected.transform.localScale -= new Vector3((float)0.2, 0, (float)0.2   );
                 currentSelected = null;
             }
         }
+
 
     }
 
@@ -169,23 +179,13 @@ public class Main : MonoBehaviour
         }
         else
         {
-            w.Clear();
-            foreach (GameObject o in planes)
-            {
-                Destroy(o);
-            }
-            planes.Clear();
+            destroyPlanes();
         }
     }
 
     private void loadPictures(HashSet<Picture> list)
     {
-        w.Clear();
-        foreach (GameObject o in planes)
-        {
-            Destroy(o);
-        }
-        planes.Clear();
+        destroyPlanes();
 
 		float sqrt2 = Mathf.Sqrt (2)/2; 
 		float size = scale + (float) 0.4; // changed from 20
@@ -280,9 +280,20 @@ public class Main : MonoBehaviour
             TextMesh tm = go.AddComponent<TextMesh>();
             tm.text = words[i];
             tm.color = Color.black;
-            tm.transform.Rotate(new Vector3(90, 180, 0));
-            tm.transform.position = new Vector3(-2, i - 2, 0);
+            tm.transform.Rotate(new Vector3(90, 0, 0));
+            tm.transform.position = new Vector3(-5, i - 2, 0);
         }
+    }
+
+    private void destroyPlanes()
+    {
+        w.Clear();
+        foreach (GameObject o in planes)
+        {
+            //Destroy(o.GetComponent<Renderer>().material.mainTexture);
+            Destroy(o);
+        }
+        planes.Clear();
     }
 }
 
