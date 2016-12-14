@@ -5,7 +5,6 @@ using System.IO;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System;
-using System.Linq;
 
 public class Main : MonoBehaviour
 {
@@ -30,18 +29,15 @@ public class Main : MonoBehaviour
 		const string jsonPath = "Assets/classification/resultimgobj.json";
 		this.pM = PicturesLoader.parseJson (jsonPath);
         scriptInstance = this;
-        //        HashSet<Picture> selectedPictures = new HashSet<Picture>();
-        //        var it = PicturesManager.pictures.GetEnumerator();
-        //        for(int i = 0; i < 30; i++)
-        //        {
-        //            selectedPictures.Add(it.Current);
-        //            Debug.Log(it.Current.getPath());
-        //            it.MoveNext();
-        //        }
-        //		loadPictures(pM.getPicturesForATag("valley"));
-        shownTags = "Say a tag to start. \n Look down for Suggestions!";
-        showTag();
-        showSuggestions();
+//        HashSet<Picture> selectedPictures = new HashSet<Picture>();
+//        var it = PicturesManager.pictures.GetEnumerator();
+//        for(int i = 0; i < 30; i++)
+//        {
+//            selectedPictures.Add(it.Current);
+//            Debug.Log(it.Current.getPath());
+//            it.MoveNext();
+//        }
+//		loadPictures(pM.getPicturesForATag("valley"));
     }
 
 	private void resize(GameObject theGameObject, float newSizex, float newSizey)
@@ -118,10 +114,11 @@ public class Main : MonoBehaviour
                 Debug.Log(fwd);
                 Vector3 cameraPos = Camera.main.transform.position;
                 if (currentSelected) {
-                    currentSelected.transform.position -= Vector3.MoveTowards(currentSelected.transform.position, new Vector3(cameraPos.x, currentSelected.transform.position.y, cameraPos.z), (float)0.01);
+                    currentSelected.transform.localScale -= new Vector3((float) 0.2,0, (float)0.2); 
                 }
 
-                target.transform.position += Vector3.MoveTowards(target.transform.position, new Vector3(cameraPos.x, target.transform.position.y, cameraPos.z), (float)0.01);
+                target.transform.localScale += new Vector3((float)0.2, 0, (float)0.2);
+     
                 currentSelected = target;
 
             }
@@ -131,7 +128,7 @@ public class Main : MonoBehaviour
             if (currentSelected)
             {
                 Vector3 cameraPos = Camera.main.transform.position;
-                currentSelected.transform.position -= Vector3.MoveTowards(currentSelected.transform.position, new Vector3(cameraPos.x, currentSelected.transform.position.y, cameraPos.z), (float)0.01);
+                currentSelected.transform.localScale -= new Vector3((float)0.2, 0, (float)0.2);
                 currentSelected = null;
             }
         }
@@ -237,22 +234,6 @@ public class Main : MonoBehaviour
         GameObject go = GameObject.Find("TagText");
         TextMesh text = go.GetComponent<TextMesh>();
         text.text = shownTags;
-    }
-
-    private void showSuggestions()
-    {
-        List<KeyValuePair<string, HashSet<Picture>>> dic = PicturesManager.pictureDictionary.ToList();
-        dic.Sort((pair1, pair2) => - (pair1.Value.Count.CompareTo(pair2.Value.Count)));
-        Debug.Log(dic.First().Key + dic.First().Value.Count);
-        for (int i = 0; i < 5; i++)
-        {
-            GameObject go = new GameObject();
-            TextMesh tm = go.AddComponent<TextMesh>();
-            tm.text = dic[i].Key;
-            tm.color = Color.black;
-            tm.transform.Rotate(new Vector3(90, 180, 0));
-            tm.transform.position = new Vector3(-2, i - 2, 0);
-        }
     }
 }
 
