@@ -5,6 +5,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System;
+using System.Linq;
 
 public class Main : MonoBehaviour
 {
@@ -91,12 +92,7 @@ public class Main : MonoBehaviour
 
     public void onResetRecognised()
     {
-        w.Clear();
-        foreach (GameObject o in planes)
-        {
-            Destroy(o);
-        }
-        planes.Clear();
+        this.destroyPlanes();
         scale = 15;
         waitForAnd = false;
         waitForOr = false;
@@ -169,23 +165,13 @@ public class Main : MonoBehaviour
         }
         else
         {
-            w.Clear();
-            foreach (GameObject o in planes)
-            {
-                Destroy(o);
-            }
-            planes.Clear();
+            destroyPlanes();
         }
     }
 
     private void loadPictures(HashSet<Picture> list)
     {
-        w.Clear();
-        foreach (GameObject o in planes)
-        {
-            Destroy(o);
-        }
-        planes.Clear();
+        destroyPlanes();
 
 		float sqrt2 = Mathf.Sqrt (2)/2; 
 		float size = scale + (float) 0.4; // changed from 20
@@ -283,6 +269,17 @@ public class Main : MonoBehaviour
             tm.transform.Rotate(new Vector3(90, 180, 0));
             tm.transform.position = new Vector3(-2, i - 2, 0);
         }
+    }
+
+    private void destroyPlanes()
+    {
+        w.Clear();
+        foreach (GameObject o in planes)
+        {
+            Destroy(o.GetComponent<Renderer>().material.mainTexture);
+            Destroy(o);
+        }
+        planes.Clear();
     }
 }
 
