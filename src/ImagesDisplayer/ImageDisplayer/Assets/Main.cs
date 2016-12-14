@@ -277,8 +277,8 @@ public class Main : MonoBehaviour
             TextMesh tm = go.AddComponent<TextMesh>();
             tm.text = words[i];
             tm.color = Color.black;
-            tm.transform.Rotate(new Vector3(90, 180, 0));
-            tm.transform.position = new Vector3(-2, i - 2, 0);
+            tm.transform.Rotate(new Vector3(90, 0, 0));
+            tm.transform.position = new Vector3(-5, i - 2, 0);
         }
     }
 
