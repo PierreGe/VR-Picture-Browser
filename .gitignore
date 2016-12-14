@@ -31,3 +31,5 @@ src/ImagesDisplayer/ImageDisplayer/sysinfo.txt
 # Builds
 src/ImagesDisplayer/ImageDisplayer/*.apk
 src/ImagesDisplayer/ImageDisplayer/*.unitypackage
+
+*.meta
