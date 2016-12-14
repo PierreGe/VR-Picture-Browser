@@ -18,8 +18,11 @@ public class Main : MonoBehaviour
     HashSet<Picture> currentPictures = new HashSet<Picture>();
     bool waitForAnd = false;
     bool waitForOr = false;
+    private Dictionary<GameObject, Picture> gopDict =new Dictionary<GameObject, Picture>();
 
     public GameObject currentSelected = null;
+
+    GameObject infoGameObject;
 
 
 
@@ -32,6 +35,10 @@ public class Main : MonoBehaviour
 	void Start ()
 	{
 
+        GameObject go = GameObject.Find("TagText");
+        TextMesh text = go.GetComponent<TextMesh>();
+        text.fontSize = 300;
+        text.transform.localScale /= 10;
 
         const string jsonPath = "Assets/classification/resultimgobj.json";
 		this.pM = PicturesLoader.parseJson (jsonPath);
@@ -120,10 +127,11 @@ public class Main : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 fwd = Camera.main.transform.TransformDirection(Vector3.forward);
-        Ray ray = new Ray(transform.position, fwd);
+        Vector3 fwd = GameObject.Find("Camera (eye)").transform.TransformDirection(Vector3.forward);
+        Ray ray = new Ray(GameObject.Find("Camera (eye)").transform.position, fwd);
         RaycastHit hit = default(RaycastHit);
-        if (Physics.Raycast(ray, out hit)) {
+        if (Physics.Raycast(ray, out hit))
+        {
             GameObject target = hit.collider.gameObject;
             if (target != currentSelected)
             {
@@ -135,6 +143,7 @@ public class Main : MonoBehaviour
                 target.transform.localScale += new Vector3((float)0.2, 0, (float)0.2);
      
                 currentSelected = target;
+                onInfo();
 
             }
         }
@@ -149,6 +158,38 @@ public class Main : MonoBehaviour
         }
 
 
+    }
+
+    public void onInfo()
+    {
+        if (currentSelected != null)
+        {
+
+            Debug.Log("Sub");
+            Picture picture;
+            if (gopDict.TryGetValue(currentSelected, out picture))
+            {
+                if (infoGameObject) {
+                    Destroy(infoGameObject);
+                }
+                infoGameObject = new GameObject();
+                infoGameObject.transform.position = currentSelected.GetComponent<Renderer>().bounds.center;
+
+                Debug.Log(currentSelected.transform.rotation.y);
+                infoGameObject.transform.rotation = currentSelected.transform.rotation;
+                infoGameObject.transform.Rotate(new Vector3(90,180,0));
+                TextMesh tm = infoGameObject.AddComponent<TextMesh>();
+                tm.fontSize = 100;
+                tm.text = "Tags :";
+                foreach (var tag in picture.getTags())
+                {
+                    tm.text += " - " + tag;
+                }
+                tm.transform.localScale /= 10;
+                tm.color = Color.black;
+            }
+
+        }
     }
 
     public void onTagRecognised(string tag)
@@ -215,9 +256,10 @@ public class Main : MonoBehaviour
 			float indexx = indexes [current,0];
 			float indexy = level* (scale - (float) 0.5) + (float) 5; // changed from *12 +5
 			float indexz = indexes [current, 1];
-
-            planes.Add(GameObject.CreatePrimitive(PrimitiveType.Plane));
-			planes[index].transform.position = new Vector3(indexx, indexy, indexz);
+            GameObject planeObject = GameObject.CreatePrimitive(PrimitiveType.Plane);
+            planes.Add(planeObject);
+            gopDict.Add(planeObject, picture);
+            planes[index].transform.position = new Vector3(indexx, indexy, indexz);
 			planes [index].transform.Rotate (new Vector3 (indexes [current,2], 180 + indexes [current,3], indexes [current,4]));
             loadTexture(picture.getPath());
             indexx += size;
@@ -241,6 +283,7 @@ public class Main : MonoBehaviour
         GameObject go = GameObject.Find("TagText");
         TextMesh text = go.GetComponent<TextMesh>();
         text.text = shownTags;
+        
     }
 
     private string[] selectSuggestions(HashSet<Picture> pictures)
@@ -278,10 +321,12 @@ public class Main : MonoBehaviour
             GameObject go = new GameObject();
             suggestions.Add(go);
             TextMesh tm = go.AddComponent<TextMesh>();
+            tm.fontSize = 100;
             tm.text = words[i];
+            tm.transform.localScale /= 10;
             tm.color = Color.black;
             tm.transform.Rotate(new Vector3(90, 0, 0));
-            tm.transform.position = new Vector3(-5, i - 2, 0);
+            tm.transform.position = new Vector3(-5, 0, i-2);
         }
     }
 
@@ -290,7 +335,7 @@ public class Main : MonoBehaviour
         w.Clear();
         foreach (GameObject o in planes)
         {
-            //Destroy(o.GetComponent<Renderer>().material.mainTexture);
+            Destroy(o.GetComponent<Renderer>().material.mainTexture);
             Destroy(o);
         }
         planes.Clear();
