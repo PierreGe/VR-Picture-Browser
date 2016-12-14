@@ -18,6 +18,8 @@ public class Main : MonoBehaviour
     bool waitForOr = false;
     GameObject currentSelected = null;
 
+    SteamVR_Controller.Device device;
+
     float scale = 15;
 
     public static Main scriptInstance;
@@ -29,15 +31,15 @@ public class Main : MonoBehaviour
 		const string jsonPath = "Assets/classification/resultimgobj.json";
 		this.pM = PicturesLoader.parseJson (jsonPath);
         scriptInstance = this;
-//        HashSet<Picture> selectedPictures = new HashSet<Picture>();
-//        var it = PicturesManager.pictures.GetEnumerator();
-//        for(int i = 0; i < 30; i++)
-//        {
-//            selectedPictures.Add(it.Current);
-//            Debug.Log(it.Current.getPath());
-//            it.MoveNext();
-//        }
-//		loadPictures(pM.getPicturesForATag("valley"));
+        //        HashSet<Picture> selectedPictures = new HashSet<Picture>();
+        //        var it = PicturesManager.pictures.GetEnumerator();
+        //        for(int i = 0; i < 30; i++)
+        //        {
+        //            selectedPictures.Add(it.Current);
+        //            Debug.Log(it.Current.getPath());
+        //            it.MoveNext();
+        //        }
+        //		loadPictures(pM.getPicturesForATag("valley"));
     }
 
 	private void resize(GameObject theGameObject, float newSizex, float newSizey)
@@ -56,6 +58,14 @@ public class Main : MonoBehaviour
 		theGameObject.transform.localScale = rescale;
 
 	}
+
+    private void onClick(object sender, ClickedEventArgs e) {
+        if (currentSelected)
+        {
+            Debug.Log("CLICK CLICK MOFO");
+        }
+
+    }
 
     public void onAndRecognised()
     {
@@ -111,7 +121,6 @@ public class Main : MonoBehaviour
             GameObject target = hit.collider.gameObject;
             if (target != currentSelected)
             {
-                Debug.Log(fwd);
                 Vector3 cameraPos = Camera.main.transform.position;
                 if (currentSelected) {
                     currentSelected.transform.localScale -= new Vector3((float) 0.2,0, (float)0.2); 
@@ -128,10 +137,12 @@ public class Main : MonoBehaviour
             if (currentSelected)
             {
                 Vector3 cameraPos = Camera.main.transform.position;
-                currentSelected.transform.localScale -= new Vector3((float)0.2, 0, (float)0.2);
+                currentSelected.transform.localScale -= new Vector3((float)0.2, 0, (float)0.2   );
                 currentSelected = null;
             }
         }
+
+
 
     }
 
