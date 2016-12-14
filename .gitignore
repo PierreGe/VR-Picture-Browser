@@ -33,3 +33,4 @@ src/ImagesDisplayer/ImageDisplayer/*.apk
 src/ImagesDisplayer/ImageDisplayer/*.unitypackage
 
 *.meta
+*.suo
