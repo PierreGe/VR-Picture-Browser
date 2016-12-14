@@ -10,7 +10,7 @@ using System.Linq;
 public class Main : MonoBehaviour
 {
     List<WWW> w = new List<WWW>();
-	int index;
+    int index;
     List<GameObject> planes = new List<GameObject>();
     List<GameObject> suggestions = new List<GameObject>();
     int frames = 0;
@@ -18,9 +18,10 @@ public class Main : MonoBehaviour
     HashSet<Picture> currentPictures = new HashSet<Picture>();
     bool waitForAnd = false;
     bool waitForOr = false;
-    GameObject currentSelected = null;
 
-    SteamVR_Controller.Device device;
+    public GameObject currentSelected = null;
+
+
 
     float scale = 15;
 
@@ -30,7 +31,9 @@ public class Main : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		const string jsonPath = "Assets/classification/resultimgobj.json";
+
+
+        const string jsonPath = "Assets/classification/resultimgobj.json";
 		this.pM = PicturesLoader.parseJson (jsonPath);
         scriptInstance = this;
         //        HashSet<Picture> selectedPictures = new HashSet<Picture>();
@@ -47,6 +50,7 @@ public class Main : MonoBehaviour
         List<KeyValuePair<String, HashSet<Picture>>> dic = PicturesManager.pictureDictionary.ToList();
         dic.Sort((pair1, pair2) => -(pair1.Value.Count.CompareTo(pair2.Value.Count)));
         showSuggestions(dic.Take(5).Select(s => s.Key).ToArray());
+
     }
 
 	private void resize(GameObject theGameObject, float newSizex, float newSizey)
@@ -143,7 +147,6 @@ public class Main : MonoBehaviour
                 currentSelected = null;
             }
         }
-
 
 
     }
