@@ -290,7 +290,7 @@ public class Main : MonoBehaviour
         w.Clear();
         foreach (GameObject o in planes)
         {
-            Destroy(o.GetComponent<Renderer>().material.mainTexture);
+            //Destroy(o.GetComponent<Renderer>().material.mainTexture);
             Destroy(o);
         }
         planes.Clear();

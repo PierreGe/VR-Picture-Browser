@@ -27,10 +27,12 @@ public class WandController : MonoBehaviour {
             Debug.Log("Controller not initialized");
             return;
         }
-        if (controller.GetPressDown(gripButton) || controller.GetPressDown(triggerButton))
+        if (controller.GetPressDown(triggerButton))
         {
-            Debug.Log("test");
-            //Main.scriptInstance.currentSelected
+            Debug.Log("Pressed");
+            GameObject selected = Main.scriptInstance.currentSelected;
+            if (selected)
+                Main.scriptInstance.currentSelected.transform.Rotate(new Vector3(0,90,0));
         }
 
     }
