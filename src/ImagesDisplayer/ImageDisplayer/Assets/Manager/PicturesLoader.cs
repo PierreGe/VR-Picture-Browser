@@ -30,7 +30,7 @@ namespace Assets
                         String[] splitted = selectedTags.Split(',');
                         foreach (String s in splitted)
                         {
-                            picturesManager.addPictureForTag(name, s);
+                            picturesManager.addPictureForTag(name, s.Trim());
                         }
                     }
                 }

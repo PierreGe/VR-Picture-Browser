@@ -5,6 +5,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System;
+using System.Linq;
 
 public class Main : MonoBehaviour
 {
@@ -26,15 +27,18 @@ public class Main : MonoBehaviour
 		const string jsonPath = "Assets/classification/resultimgobj.json";
 		this.pM = PicturesLoader.parseJson (jsonPath);
         scriptInstance = this;
-//        HashSet<Picture> selectedPictures = new HashSet<Picture>();
-//        var it = PicturesManager.pictures.GetEnumerator();
-//        for(int i = 0; i < 30; i++)
-//        {
-//            selectedPictures.Add(it.Current);
-//            Debug.Log(it.Current.getPath());
-//            it.MoveNext();
-//        }
-//		loadPictures(pM.getPicturesForATag("valley"));
+        //        HashSet<Picture> selectedPictures = new HashSet<Picture>();
+        //        var it = PicturesManager.pictures.GetEnumerator();
+        //        for(int i = 0; i < 30; i++)
+        //        {
+        //            selectedPictures.Add(it.Current);
+        //            Debug.Log(it.Current.getPath());
+        //            it.MoveNext();
+        //        }
+        //		loadPictures(pM.getPicturesForATag("valley"));
+        shownTags = "Say a tag to start. \n Look down for Suggestions!";
+        showTag();
+        showSuggestions();
     }
 
 	private void resize(GameObject theGameObject, float newSizex, float newSizey)
@@ -174,6 +178,22 @@ public class Main : MonoBehaviour
         GameObject go = GameObject.Find("TagText");
         TextMesh text = go.GetComponent<TextMesh>();
         text.text = shownTags;
+    }
+
+    private void showSuggestions()
+    {
+        List<KeyValuePair<string, HashSet<Picture>>> dic = PicturesManager.pictureDictionary.ToList();
+        dic.Sort((pair1, pair2) => - (pair1.Value.Count.CompareTo(pair2.Value.Count)));
+        Debug.Log(dic.First().Key + dic.First().Value.Count);
+        for (int i = 0; i < 5; i++)
+        {
+            GameObject go = new GameObject();
+            TextMesh tm = go.AddComponent<TextMesh>();
+            tm.text = dic[i].Key;
+            tm.color = Color.black;
+            tm.transform.Rotate(new Vector3(90, 180, 0));
+            tm.transform.position = new Vector3(-2, i - 2, 0);
+        }
     }
 }
 
