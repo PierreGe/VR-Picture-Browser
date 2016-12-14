@@ -28,10 +28,15 @@ namespace Assets
                     {
                         String selectedTags = (String)tags.First;
                         String[] splitted = selectedTags.Split(',');
-                        foreach (String s in splitted)
+                        for(int i = 0; i < splitted.Length; i++)
+                        {
+                            splitted[i] = splitted[i].Trim();
+                        }
+                        picturesManager.addPicture(name, splitted);
+                        /*foreach (String s in splitted)
                         {
                             picturesManager.addPictureForTag(name, s.Trim());
-                        }
+                        }*/
                     }
                 }
                 currentObj = currentObj.Next;
