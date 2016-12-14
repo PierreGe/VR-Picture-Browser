@@ -18,11 +18,13 @@ public class Main : MonoBehaviour
     bool waitForOr = false;
     GameObject currentSelected = null;
 
-    public static Main scriptInstance;
-    
+    float scale = 15;
 
-    // Use this for initialization
-    void Start ()
+    public static Main scriptInstance;
+
+    String shownTags = "";
+	// Use this for initialization
+	void Start ()
 	{
 		const string jsonPath = "Assets/classification/resultimgobj.json";
 		this.pM = PicturesLoader.parseJson (jsonPath);
@@ -42,9 +44,11 @@ public class Main : MonoBehaviour
 	{
 
 		float sizex = theGameObject.GetComponent<Renderer>().bounds.size.x;
-		float sizey = theGameObject.GetComponent<Renderer>().bounds.size.y;
+        Debug.Log(sizex);
+        float sizey = theGameObject.GetComponent<Renderer>().bounds.size.y;
+        Debug.Log(sizey);
 
-		Vector3 rescale = theGameObject.transform.localScale;
+        Vector3 rescale = theGameObject.transform.localScale;
 
 		rescale.x = newSizex * rescale.x / sizex;
 		rescale.y = newSizey * rescale.y / sizey;
@@ -56,11 +60,40 @@ public class Main : MonoBehaviour
     public void onAndRecognised()
     {
         waitForAnd = true;
+        shownTags += " AND ";
+        showTag();
     }
 
     public void onOrRecognised()
     {
         waitForOr = true;
+        shownTags += " OR ";
+        showTag();
+    }
+
+    public void onSmallerRecognised()
+    {
+        scale = (float) 0.85 * scale;
+        loadPictures(currentPictures);
+    }
+
+    public void onBiggerRecognised()
+    {
+        scale = (float)1.15 * scale;
+        loadPictures(currentPictures);
+    }
+
+    public void onResetRecognised()
+    {
+        w.Clear();
+        foreach (GameObject o in planes)
+        {
+            Destroy(o);
+        }
+        planes.Clear();
+        scale = 15;
+        waitForAnd = false;
+        waitForOr = false;
     }
 
     private void loadTexture(string filename)
@@ -105,15 +138,21 @@ public class Main : MonoBehaviour
     {
         if (waitForOr)
         {
+            shownTags += tag;
+            showTag();
             currentPictures.UnionWith(pM.getPicturesForATag(tag));
             waitForOr = false;
         } else if (waitForAnd)
         {
+            shownTags += tag;
+            showTag();
             currentPictures.IntersectWith(pM.getPicturesForATag(tag));
             waitForAnd = false;
         }
         else
         {
+            shownTags = tag;
+            this.showTag();
             currentPictures = pM.getPicturesForATag(tag);
         }
         if (currentPictures != null)
@@ -129,7 +168,6 @@ public class Main : MonoBehaviour
             }
             planes.Clear();
         }
-       
     }
 
     private void loadPictures(HashSet<Picture> list)
@@ -142,16 +180,19 @@ public class Main : MonoBehaviour
         planes.Clear();
 
 		float sqrt2 = Mathf.Sqrt (2)/2; 
-		float size = 20;
-		float[,] indexes = {
-			{0,size,90,0,0},
-			{size*sqrt2,size*sqrt2,90,45,0},
-			{-size*sqrt2,size*sqrt2, 90, -45, 0},
-			{size,0, 90, 90, 0},
-			{-size,0, 90, -90, 0},
-			{size*sqrt2,-size*sqrt2, 90, 135, 0},
-			{-size*sqrt2,-size*sqrt2, 90, -135, 0},
-			{0,-size,90,180,0}
+		float size = scale + (float) 0.4; // changed from 20
+        int magicnumber = 90;
+        int magicnumber2 = 45;
+        int magicnumber3 = 135;
+        float[,] indexes = {
+			{0,size,magicnumber,0,0},
+			{size*sqrt2,size*sqrt2,magicnumber,magicnumber2,0},
+			{-size*sqrt2,size*sqrt2, magicnumber, -magicnumber2, 0},
+			{size,0, magicnumber, magicnumber, 0},
+			{-size,0, magicnumber, -magicnumber, 0},
+			{size*sqrt2,-size*sqrt2, magicnumber, magicnumber3, 0},
+			{-size*sqrt2,-size*sqrt2, magicnumber, -magicnumber3, 0},
+			{0,-size,magicnumber,180,0}
 		};
 		index = 0;
 		int current = 0;
@@ -164,14 +205,14 @@ public class Main : MonoBehaviour
 				level ++;
 			}
 			float indexx = indexes [current,0];
-			float indexy = level*12 + 5;
+			float indexy = level* (scale - (float) 0.5) + (float) 5; // changed from *12 +5
 			float indexz = indexes [current, 1];
 
             planes.Add(GameObject.CreatePrimitive(PrimitiveType.Plane));
 			planes[index].transform.position = new Vector3(indexx, indexy, indexz);
 			planes [index].transform.Rotate (new Vector3 (indexes [current,2], 180 + indexes [current,3], indexes [current,4]));
             loadTexture(picture.getPath());
-            indexx += 20;
+            indexx += size;
 			current++;
 			index++;
         }
@@ -185,6 +226,13 @@ public class Main : MonoBehaviour
             }
 
         }
+    }
+
+    private void showTag()
+    {
+        GameObject go = GameObject.Find("TagText");
+        TextMesh text = go.GetComponent<TextMesh>();
+        text.text = shownTags;
     }
 }
 
