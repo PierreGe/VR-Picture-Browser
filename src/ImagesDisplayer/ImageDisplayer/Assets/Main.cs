@@ -18,6 +18,8 @@ public class Main : MonoBehaviour
     bool waitForOr = false;
 
     public static Main scriptInstance;
+
+    String shownTags = "";
 	// Use this for initialization
 	void Start ()
 	{
@@ -53,11 +55,15 @@ public class Main : MonoBehaviour
     public void onAndRecognised()
     {
         waitForAnd = true;
+        shownTags += " AND ";
+        showTag();
     }
 
     public void onOrRecognised()
     {
         waitForOr = true;
+        shownTags += " OR ";
+        showTag();
     }
 
     private void loadTexture(string filename)
@@ -76,15 +82,21 @@ public class Main : MonoBehaviour
     {
         if (waitForOr)
         {
+            shownTags += tag;
+            showTag();
             currentPictures.UnionWith(pM.getPicturesForATag(tag));
             waitForOr = false;
         } else if (waitForAnd)
         {
+            shownTags += tag;
+            showTag();
             currentPictures.IntersectWith(pM.getPicturesForATag(tag));
             waitForAnd = false;
         }
         else
         {
+            shownTags = tag;
+            this.showTag();
             currentPictures = pM.getPicturesForATag(tag);
         }
         if (currentPictures != null)
@@ -100,7 +112,6 @@ public class Main : MonoBehaviour
             }
             planes.Clear();
         }
-       
     }
 
     private void loadPictures(HashSet<Picture> list)
@@ -156,6 +167,13 @@ public class Main : MonoBehaviour
             }
 
         }
+    }
+
+    private void showTag()
+    {
+        GameObject go = GameObject.Find("TagText");
+        TextMesh text = go.GetComponent<TextMesh>();
+        text.text = shownTags;
     }
 }
 
