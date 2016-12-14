@@ -16,10 +16,13 @@ public class Main : MonoBehaviour
     HashSet<Picture> currentPictures = new HashSet<Picture>();
     bool waitForAnd = false;
     bool waitForOr = false;
+    GameObject currentSelected = null;
 
     public static Main scriptInstance;
-	// Use this for initialization
-	void Start ()
+    
+
+    // Use this for initialization
+    void Start ()
 	{
 		const string jsonPath = "Assets/classification/resultimgobj.json";
 		this.pM = PicturesLoader.parseJson (jsonPath);
@@ -65,12 +68,38 @@ public class Main : MonoBehaviour
 		string fullPath = "file://" + Path.GetFullPath(@"data/") + filename ;
 		w.Add(new WWW(fullPath));
 	}
-	// Update is called once per frame
-	void Update ()
-	{
+    // Update is called once per frame
+    void Update()
+    {
+        Vector3 fwd = Camera.main.transform.TransformDirection(Vector3.forward);
+        Ray ray = new Ray(transform.position, fwd);
+        RaycastHit hit = default(RaycastHit);
+        if (Physics.Raycast(ray, out hit)) {
+            GameObject target = hit.collider.gameObject;
+            if (target != currentSelected)
+            {
+                Debug.Log(fwd);
+                Vector3 cameraPos = Camera.main.transform.position;
+                if (currentSelected) {
+                    currentSelected.transform.position -= Vector3.MoveTowards(currentSelected.transform.position, new Vector3(cameraPos.x, currentSelected.transform.position.y, cameraPos.z), (float)0.01);
+                }
 
-		
-	}
+                target.transform.position += Vector3.MoveTowards(target.transform.position, new Vector3(cameraPos.x, target.transform.position.y, cameraPos.z), (float)0.01);
+                currentSelected = target;
+
+            }
+        }
+        else
+        {
+            if (currentSelected)
+            {
+                Vector3 cameraPos = Camera.main.transform.position;
+                currentSelected.transform.position -= Vector3.MoveTowards(currentSelected.transform.position, new Vector3(cameraPos.x, currentSelected.transform.position.y, cameraPos.z), (float)0.01);
+                currentSelected = null;
+            }
+        }
+
+    }
 
     public void onTagRecognised(string tag)
     {
