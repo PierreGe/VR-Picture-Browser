@@ -9,6 +9,7 @@ namespace Assets
     {
         private string path;
         private string name;
+        private string[] tags;
         
         public Picture(string path)
         {
@@ -25,6 +26,15 @@ namespace Assets
             return path;
         }
 
+        public void setTags(string[] tags)
+        {
+            this.tags = tags;
+        }
+
+        public string[] getTags()
+        {
+            return tags;
+        }
         override
         public bool Equals(Object obj)
         {

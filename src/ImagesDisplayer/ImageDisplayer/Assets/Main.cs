@@ -5,12 +5,14 @@ using System.IO;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System;
+using System.Linq;
 
 public class Main : MonoBehaviour
 {
     List<WWW> w = new List<WWW>();
 	int index;
     List<GameObject> planes = new List<GameObject>();
+    List<GameObject> suggestions = new List<GameObject>();
     int frames = 0;
     PicturesManager pM;
     HashSet<Picture> currentPictures = new HashSet<Picture>();
@@ -40,6 +42,11 @@ public class Main : MonoBehaviour
         //            it.MoveNext();
         //        }
         //		loadPictures(pM.getPicturesForATag("valley"));
+        shownTags = "Say a tag to start. \n Look down for Suggestions!";
+        showTag();
+        List<KeyValuePair<String, HashSet<Picture>>> dic = PicturesManager.pictureDictionary.ToList();
+        dic.Sort((pair1, pair2) => -(pair1.Value.Count.CompareTo(pair2.Value.Count)));
+        showSuggestions(dic.Take(5).Select(s => s.Key).ToArray());
     }
 
 	private void resize(GameObject theGameObject, float newSizex, float newSizey)
@@ -170,6 +177,7 @@ public class Main : MonoBehaviour
         if (currentPictures != null)
         {
             loadPictures(currentPictures);
+            showSuggestions(selectSuggestions(currentPictures));
         }
         else
         {
@@ -245,6 +253,48 @@ public class Main : MonoBehaviour
         GameObject go = GameObject.Find("TagText");
         TextMesh text = go.GetComponent<TextMesh>();
         text.text = shownTags;
+    }
+
+    private string[] selectSuggestions(HashSet<Picture> pictures)
+    {
+        Dictionary<string, int> words = new Dictionary<string, int>();
+        foreach (Picture p in pictures)
+        {
+            string[] tags = p.getTags();
+            foreach(string tag in tags)
+            {
+                int val;
+                if (words.TryGetValue(tag, out val))
+                {
+                    val++;
+                } else
+                {
+                    words.Add(tag, 1);
+                }
+            }
+        }
+        var list = words.ToList();
+        list.Sort((p1, p2) => -p1.Value.CompareTo(p2.Value));
+        return list.Take(5).Select(p => p.Key).ToArray();
+    }
+
+    private void showSuggestions(String[] words)
+    {
+        foreach(GameObject g in suggestions)
+        {
+            Destroy(g);
+        }
+        suggestions.Clear();
+        for (int i = 0; i < words.Length; i++)
+        {
+            GameObject go = new GameObject();
+            suggestions.Add(go);
+            TextMesh tm = go.AddComponent<TextMesh>();
+            tm.text = words[i];
+            tm.color = Color.black;
+            tm.transform.Rotate(new Vector3(90, 180, 0));
+            tm.transform.position = new Vector3(-2, i - 2, 0);
+        }
     }
 }
 
