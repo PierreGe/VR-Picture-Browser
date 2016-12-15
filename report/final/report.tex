@@ -53,20 +53,16 @@ The usability of this project is going to be as much as straightforward as possi
 
 The main goal is to make the user relive the moment immortalized by the pictures and helping him remember the event and feel the same emotion once again. % user should feel that it is useful enjoyable, engaging and FUN
 
-\section{Prototyping}
+\section{Design and prototyping}
 
 For the design, implementation and validation of the next generation user interface, we worked in an iterative way.
 The idea was to create multiple evolutionary prototyping. Each prototype was then presented to the class. With such a method, we were able to create a final product on time and validated its usability.
 
 \subsection{Iteration 1 : problem defined}
 
-%define problem/need and how our system is going to solve it and technologies used
-The first iteration consisted mainly on a brainstorm about which next-generation interface to design.
-Multiple aspect have been taken into account
-
-% asumption : user want to browse their pictures easyly, many tales of flemme
-% added value of our interface
-% user was in the center of the design, how it was going to be used 
+The first iteration consisted mainly on sitting in a confortable room and brainstorming about which next-generation interface to design. Many idea had emerged and the one that convince us the most was to innovate in the picture browsing field. Indeed, multiple technologies have recently appears on the market and we though they could be use to enhance usability and user experience of such systems.
+The first and main assumption made on behalf of the user is that the user possess a lot of picture but don't have the time of to browse or sort them all. We want to solve this user's problem.
+The added value of our idea to traditional iterative picture browser was an intelligence which recognize effortlessly the content of user's pictures and immersive way to browse them thanks to new immersive technology known as virtual reality and voice recognition.
 
 \subsection{Iteration 2 : requirements defined}
 
@@ -74,19 +70,29 @@ Multiple aspect have been taken into account
 
 % user-centred design involves users throughout the process
 
+% planning, deadlining
+
 \subsection{Iteration 3 : low-fidelity prototype}
 
-% getting a prototype where all technologies work separately (low-fidelity)
+This iteration was all about making sure the product is feasible and that requirements could be reached by making a low-fidelity prototype with all components working separately.
+The idea here was to find solution for each of those components :
+\begin{itemize}
+	\item A Neural Network capable of automatically tagging the image,
+	\item A framework to support the HTV Vive Virtual reality set,
+	\item A Speech recognizer interoperable with the chosen VR framework,
+\end{itemize}
+
+More information about the technologies used can be find in architecture section \ref{techntechno} .
 
 \subsection{Iteration 4 : high fidelity prototype}
 
-% gettin a basic prototype where all techno work together
+The goal of this iteration was to managed to build a working high-fidelity prototype were the main feature of the interface would be there.
+The prototype build at this point was capable of handling voice recognized keywords and showed the corresponding image in the Virtual Reality environment.
 
-\subsection{Iteration 5 : prototype improvement }
+\subsection{Iteration 5 : prototype improvement}
 
-% Focus on user goals and on usability 
-
-% improvement to techno (or and and, image around, minors)
+This iteration focused on user goals and on usability trough improvement of the first high-fidelity prototype. Following users feedback, we changed the way the picture are displayed : instead of showing a "wall" of pictures we surround the user with picture, making a circle of pictures around the user.
+We also added more advanced queries, where a user can do the union and the intersection of subsets (tags) of pictures.
 
 \subsection{Iteration 6 : final product}
 
@@ -103,7 +109,7 @@ Multiple aspect have been taken into account
 % evaluation
 
 
-\section{Intelligent Picture Browser}
+\section{Technical : Intelligent Picture Browser}
 
 
 % first clearly defined product wanted and requirement, iterative evolutionary prototyping with refinement PoC until an evaluted final product, we followed the init gant chart
@@ -115,7 +121,16 @@ Multiple aspect have been taken into account
 % voice recognition for tag and non-vive-command intuite interaction
 % for intuitive interaction
 
-\subsection{Architecture}
+\subsection{Architecture} \label{techntechno}
+
+
+The selected technologies are :
+\begin{itemize}
+	\item Google machine learning library TensorFlow for the neural network,
+	\item Microsoft .net speech recognition library for the voice recognition
+	\item Unity3D for the HTC Vive Virtual Reality environment.
+\end{itemize}
+
 
 % NN for tag -> json
 
@@ -144,6 +159,9 @@ Multiple aspect have been taken into account
 % Evalution take place in front of computer in natural setting
 
 % summative evalution -> assess the final product. How well did we do ?
+
+
+\section{Conclusion}
 
 
 \end{document}
