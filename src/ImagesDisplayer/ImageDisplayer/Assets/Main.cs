@@ -21,6 +21,7 @@ public class Main : MonoBehaviour
     private Dictionary<GameObject, Picture> gopDict =new Dictionary<GameObject, Picture>();
 
     public GameObject currentSelected = null;
+    private GameObject helpGameObject = null;
 
     GameObject infoGameObject;
 
@@ -38,7 +39,7 @@ public class Main : MonoBehaviour
         GameObject go = GameObject.Find("TagText");
         TextMesh text = go.GetComponent<TextMesh>();
         text.fontSize = 300;
-        text.transform.localScale /= 10;
+        text.transform.localScale /= 25;
 
         const string jsonPath = "Assets/classification/resultimgobj.json";
 		this.pM = PicturesLoader.parseJson (jsonPath);
@@ -52,7 +53,7 @@ public class Main : MonoBehaviour
         //            it.MoveNext();
         //        }
         //		loadPictures(pM.getPicturesForATag("valley"));
-        shownTags = "Say a tag to start. \n Look down for Suggestions!";
+        shownTags = "Say a tag to start. \n Look down for Suggestions!\n Say HELP to display the help";
         showTag();
         List<KeyValuePair<String, HashSet<Picture>>> dic = PicturesManager.pictureDictionary.ToList();
         dic.Sort((pair1, pair2) => -(pair1.Value.Count.CompareTo(pair2.Value.Count)));
@@ -143,7 +144,6 @@ public class Main : MonoBehaviour
                 target.transform.localScale += new Vector3((float)0.2, 0, (float)0.2);
      
                 currentSelected = target;
-                onInfo();
 
             }
         }
@@ -194,6 +194,7 @@ public class Main : MonoBehaviour
 
     public void onTagRecognised(string tag)
     {
+        Destroy(helpGameObject);
         if (waitForOr)
         {
             shownTags += tag;
@@ -211,6 +212,7 @@ public class Main : MonoBehaviour
         {
             shownTags = tag;
             this.showTag();
+
             currentPictures = pM.getPicturesForATag(tag);
         }
         if (currentPictures != null)
@@ -222,6 +224,39 @@ public class Main : MonoBehaviour
         {
             destroyPlanes();
         }
+    }
+
+    public void onHelp()
+    {
+        destroyPlanes();
+
+        GameObject go = GameObject.Find("TagText");
+        TextMesh text = go.GetComponent<TextMesh>();
+        text.text = "";
+
+        var camera = GameObject.Find("Camera (eye)");
+
+        helpGameObject = new GameObject();//GameObject.CreatePrimitive(PrimitiveType.Plane);
+
+        //helpGameObject.GetComponent<Renderer>().material.color = Color.blue;
+        //helpGameObject.transform.Rotate(-90, 0, 0);
+        helpGameObject.transform.position = new Vector3(-20,12,20);
+
+
+        //infoGameObject.transform.parent = camera.transform;
+        TextMesh tm = helpGameObject.AddComponent<TextMesh>();
+        tm.text = "Use voice recognition to say tags\n"+
+            "Press the back button on the controller while looking at an image to rotate it\n"+
+            "Use the touchpad up and down buttons to go up and down\n"+
+            "To combine your current tag with another tag, use the vocal commands \nAND(Mathematical intersection)/OR(Mathematical intersection) and then your tag\n"+
+            "Use the words CLOSER and FURTHER to make the images move to you or away from you";
+        tm.alignment = TextAlignment.Center;
+        tm.color = UnityEngine.Color.black;
+        tm.fontSize = 600;
+        tm.transform.localScale /= 60;
+
+
+
     }
 
     private void loadPictures(HashSet<Picture> list)

@@ -13,13 +13,14 @@ public class DictationScript : MonoBehaviour
 
     void Start()
     {
-        string[] tags = new string[(Assets.PicturesManager.pictureDictionary).Keys.Count+6];
+        string[] tags = new string[(Assets.PicturesManager.pictureDictionary).Keys.Count+7];
         tags[tags.Length-1] = "and";
         tags[tags.Length - 2] = "or";
         tags[tags.Length - 3] = "closer";
         tags[tags.Length - 4] = "farther";
         tags[tags.Length - 5] = "further";
         tags[tags.Length - 6] = "reset";
+        tags[tags.Length - 7] = "help";
         (Assets.PicturesManager.pictureDictionary).Keys.CopyTo(tags, 0);
         for (int i = 0; i < tags.Length; i++)
         {
@@ -55,6 +56,10 @@ public class DictationScript : MonoBehaviour
         else if (args.text.Equals("reset"))
         {
             Main.scriptInstance.onResetRecognised();
+        }
+        else if (args.text.Equals("help"))
+        {
+            Main.scriptInstance.onHelp();
         }
 
         else
