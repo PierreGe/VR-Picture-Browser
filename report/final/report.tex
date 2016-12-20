@@ -109,37 +109,85 @@ It has a multimodal interface, that involves visualization, speaking and movemen
 Other than interacting with the speech recognition, some commands are linked to the physical controllers of the HTC vive, that permits, in those cases, to have faster interaction.
 
 \subsection{Functionality}
+Functionalities are divided in basic and advanced.
+The first one represent the basis of the application, the second ones are less intuitive operations added to complete the user experience.
+After executing the tagging script, images are categorized by one or more tags, that are considered the most probable for a given picture.
 
-The user can select a tag and the system will show the picures associated.
-He can select subsets of tags via an \textit{and} query, or he can do the union of two subsets with an \textit{or} query.
-It can select a picture by just looking at it, and it can ask to the system to show the pictures closer or further, that it's, at the end, a zoom. All those interactions are done via voice recognition.
-
-The user can move around, if the space around him allows, and get physically closer to the pictures to analyze them better.
-Since the pictures are shown in a sort of cylinder all around the user, he might need to go up or down inside this cylinder in order to see partially hidden pictures. To do so, he can use the pad of the HTC vive controller, that will offer immediate feedback on the pressure of up or down. With the use of the controller the user can also rotate the selected picture by 90°.
-
-Whenever the user looks on the ground, he can find a set of suggestions. Those suggestions are selected basing on the tags of the pictures shown, allowing the user to find similar tags that might show similar pictures.
-An help system is also provided when \textit{help} is pronounced, offering the user support on how to activate the functionalities.
-
-\subsection{Interactions}
-
-% voice recognition for tag and non-vive-command intuite interaction
-% for intuitive interaction
-
-\subsection{Architecture} \label{techntechno}
-
-
-The selected technologies are :
+\paragraph{Basic functionalities:}
+The user can
 \begin{itemize}
-	\item Google machine learning library TensorFlow for the neural network,
-	\item Microsoft .net speech recognition library for the voice recognition
-	\item Unity3D for the HTC Vive Virtual Reality environment.
+\item Select pictures querying by their tag
+\item Navigate through the picture shown around him
+\item Select one to see it bigger 
+\item Look at suggestions of tags.
+\item Open an helper that will explain how to activate the commands
+\end{itemize} 
+The tag suggestions are selected depending on the current shown pictures, trying to find similar tags present in most of them.
+At the beginning, the suggested tags are the most present in all the pictures tagged.
+
+
+\paragraph{Advanced functionalities}
+The user can
+\begin{itemize}
+\item Query different tags via mathematical intersection and union
+\item Move the pictures closer and further (zoom)
+\item Rotate the selected picture
+\item Move up and down through the pictures
 \end{itemize}
 
+\subsection{Interactions}
+Interactions with the applications are possible in four possible modes:
+\begin{enumerate}
+\item \textbf{Movement} Being in a Virtual Reality, the user can move around, if the space around him allows, and get physically closer to the pictures to analyze them better.
 
+\item \textbf{Vision}
+When a user looks at a picture, that gets automatically selected to allow than to apply advanced functions.
+Whenever he looks on the ground, he will always find suggestions for tags.
+
+\item \textbf{Speech} The user can say a tag, and immediately pictures associated to that tag will be shown.
+When the user says the keyword \texttt{help} a text of help is shown in front of him, so he can read the different commands he can say and execute.
+
+When he says the keyword \texttt{and} or \texttt{or}, followed by a tag, the related mathematical operation will be executed on the set of the currently shown pictures and the set of pictures associated to the newly pronounced tag.
+When he says \texttt{further} or \texttt{closer} the pictures will be zommed in or out according to the keyword said.
+
+\item \textbf{Touch} Using the controller of the HTC-Vive the user can toggle different commands:
+Using the back trigger he can rotate of 90 degrees the selected picture, in order to improve its visualization.
+
+Using the buttons up and down of the front pad, he can move up and down inside the pictures that are around me, being able to see also the pictures too far from him.
+
+\end{enumerate}
+
+\paragraph{Note on visualization} The pictures are shown in the Virtual reality environment all around the user. 
+This means that the user, in order to look at pictures, simply has to rotate.
+If many pictures are shown, they form a sort of cylinder around the user, being displayed in a circular way around him at different height level. That's why it was necessary to add commmands to move up and down.
+
+During the development of the project we tried out different layouts of pictures: in our first prototype, in fact, pictures were shown in a big plane in front of the user. This means that with a big number of pictures, the user would need to move left, right, up and down, since doing only one layers of pictures wouldn't have allowed to see many pictures at the same time.
+
+Movements left-right are allowed in virtual reality, since the user can move and the sensor will track his movement. But big sets of pictures would have meant that the user had to move probably way over its possible space around him, since the HTC Vive has physical limitations due to the cable attached to the computer and to the room itself.
+This is why we preferred to have the user surrounded by pictures, offering two buttons to move up and down that we would have needed to add anyway.
+
+\paragraph{Note on the controller commands} The three different commands controller-activated were also implementable by voice query, as most of the other commands of the application.
+We preferred a controller-approach because it gives a better immediate feedback than the voice recognition, and because we didn't want to overcharge our dictionary with other keywords that the user had to remember.
+\subsection{Software Technologies} \label{techntechno}
+
+The selected technologies are :
+	\todo{@Bruno are there particular Unity things we downloaded from the unity store for the view?}
+\begin{itemize}
+	\item Google machine learning library TensorFlow for the neural network,
+	\item Unity3D for the HTC Vive Virtual Reality environment.
+	\item C$\#$ on \textit{mono} reduced set of Microsoft .net framework.
+	\item Microsoft-Unity windows speech recognition library (\texttt{Unity.Windows.Speech})for the voice commands.
+	\item Json format to store tags associated to a picture path.
+	\item \texttt{Newtonsoft.Json} library to parse the Json in the C$\#$ environment.
+\end{itemize}
+
+\todo{Maybe add a some lines on tensorflow? @Pierre}
 % NN for tag -> json
 
 % Utinty interface <- json
 % unity interface <- win10 speech recognizer
+\subsection{Architecture}
+
 
 % scripts used? 
 % internal representation of the images (dictionary, paths, tags)
