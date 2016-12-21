@@ -7,18 +7,16 @@ namespace Assets
 {
     public class Picture
     {
+        //the path of the picture
         private string path;
-        private string name;
+        //a list of tags
         private string[] tags;
         
+        /* getters and setters */
+
         public Picture(string path)
         {
             this.path = path;
-        }
-
-        public string getName()
-        {
-            return name;
         }
 
         public string getPath()
@@ -35,6 +33,8 @@ namespace Assets
         {
             return tags;
         }
+
+        // Equals method 
         override
         public bool Equals(Object obj)
         {

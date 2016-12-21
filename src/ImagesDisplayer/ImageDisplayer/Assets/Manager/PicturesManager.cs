@@ -11,6 +11,7 @@ namespace Assets
         //Dictionary containing as key the tag and as value the set with all the pictures associated to that tag
         public static Dictionary<String, HashSet<Picture>> pictureDictionary = new Dictionary<string, HashSet<Picture>>();
 
+        //Initialize a picture and add its reference to the values of each of the tags
         public void addPicture(string path, String[] tags)
         {
             Picture p = new Picture(path);
@@ -19,12 +20,13 @@ namespace Assets
             }
             p.setTags(tags);
         }
-
+        //intiialize a picture for one tag
         public void addPictureForTag(string path, string tag)
         {
             Picture pic = new Picture(path);
             addPictureForTag(pic, tag);
         }
+        //add an initialized picture to a tag
         public void addPictureForTag(Picture pic,string tag)
         {
             HashSet<Picture> value;
@@ -39,7 +41,7 @@ namespace Assets
                 pictureDictionary.Add(tag, value);
             }
         }
-
+        //get the set of pictures given a tag
         public HashSet<Picture> getPicturesForATag(string tag)
         {
             HashSet<Picture> value = null;
