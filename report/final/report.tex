@@ -223,6 +223,11 @@ It uses the \texttt{Newtonsoft.Json} library to ease the parsing of the JSON.
 \item \texttt{PicturesManager.cs} manages the set of pictures, allowing to add and query the set. The set of pictures is stored as dictionary, with the tag string as key and the \texttt{Picture} object as value.
 \end{itemize}
 \todo{maybe add UML}
+
+\paragraph{Note: External Source Code}
+In the source code are also present classes of \texttt{SteamVR}, that are necessary to deploy on the HTC Vive.
+Those classes are not part of this project.
+
 \subsection{Challenges}
 
 % use unity and all its specificities
@@ -231,11 +236,26 @@ It uses the \texttt{Newtonsoft.Json} library to ease the parsing of the JSON.
 
 % speech recognition is bad
 
-% making the function visible
+% making the function visible (???)
 
 % VR new and doc is bad
 
 % require a monster computer
+
+We were faced with many challenges, mainly because nobody in the group had previous experience with Unity nor C$\#$.
+Unity uses a reduced set of the \texttt{Microsoft .net Framework 3.0}, so many libraries where incompatible, or some functionalities of C$\#$ couldn't be used.
+Furthermore, Unity is not compatible between different versions, so we all needed to have the exact same release, and this got us into many troubles and time loss before we found out what was the problem.
+
+There is poor software interoperability between unity and its library, and we were forced to use the Microsoft Speech Recognition Library, that works only on Windows. 
+Since we are all linux or mac users the initial goal for us was to make the application run on any of those machine, but Windows was needed.
+For those of us that didn't have Windows 10 an update was required, since the libraries work only with that version of windows.
+
+The only working speech recognition library we found works only on keywords. This means that you cannot speak naturally to it, and tags need to be initialized to a specific grammar. We used all the possible keywords given by \texttt{Tensorflow}, but when no word is recognized there is no feedback for the user to know if he just misspelled or if that tag is not present in the system.
+We also had problems with our accents, since we all are not native English speakers and we all have our different accent.
+
+Working with Unity3D also made us face lack of documentation, since it's new technology and many library or components don't have a really complete documentation, and many things had to be found by ''trying''.
+
+Finally, in order to run our application using the HTC Vive headset, we needed to use a really modern and powerful desktop computer, because good laptops nor desktop can render the VR environment smoothly.
 
 \section{Evaluation} \label{eval}
 
