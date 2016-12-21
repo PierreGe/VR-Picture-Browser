@@ -184,15 +184,45 @@ The selected technologies are :
 \todo{Maybe add a some lines on tensorflow? @Pierre}
 % NN for tag -> json
 
-% Utinty interface <- json
-% unity interface <- win10 speech recognizer
-\subsection{Architecture}
 
+\subsection{Architecture}
 
 % scripts used? 
 % internal representation of the images (dictionary, paths, tags)
+% Utinty interface <- json
+% unity interface <- win10 speech recognizer
 
+The project is written using Unity, and is divided in two parts: the C$\#$ Unity \textit{GameObject} scripts and the C$\#$ application logic.
 
+\subsubsection{Unity Scripts}
+\textit{Files are located in src/ImageDisplayer/ImageDisplayer/Assets.}
+
+The unity scrips handle the visualization and the interaction with the user. 
+There are three scripts:
+\begin{itemize}
+\item\texttt{Main.cs} handles the scene, all the game objects, the disposition of the planes, the texturing and all the commands.
+It has a specific method for each command, and it handles the current pictures, deleting them from memory when they are not shown anymore in order to prevent memory leaks.
+\item \texttt{DictationScript.cs} initializes a grammar with the tags and the keywords. With that it loads a \texttt{KeywordRecognizer} that listens to the told keywords. When recognized, it will call the right method on the \texttt{Main} script.
+If the recognized word is one of the commands-keyword, it will call the relative functionality in the main.
+Otherwise, it will call the main for loading the pictures.
+\item\texttt{WandController.cs} handles the controller input. It calls the rotate on the main script if needed, otherwise it moves the main camera in case of movement.
+\end{itemize}
+
+\subsubsection{Application Logic: Manager}
+\textit{Files are located in src/ImageDisplayer/ImageDisplayer/Assets/Manager.}
+
+The files on the Manager namespace handle the representation of pictures, hold the reference to them and provides the querying.
+
+It is composed by three classes, stored in three different files:
+\begin{itemize}
+\item \texttt{Picture.cs} represents a \texttt{Picture}, with its filepath and tags.
+\item \texttt{PicturesLoader.cs} provides functionalities to parse the JSON containing the pictures paths and tags. 
+A tag is accepted only if the confidence level (calculated by the neural network) is higher than 35$\%$.
+The rest of the tags are ignored.
+It uses the \texttt{Newtonsoft.Json} library to ease the parsing of the JSON.
+\item \texttt{PicturesManager.cs} manages the set of pictures, allowing to add and query the set. The set of pictures is stored as dictionary, with the tag string as key and the \texttt{Picture} object as value.
+\end{itemize}
+\todo{maybe add UML}
 \subsection{Challenges}
 
 % use unity and all its specificities
