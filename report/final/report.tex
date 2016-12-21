@@ -58,67 +58,69 @@ The main goal is to make the user experience the moment immortalized by the pict
 Concerning the design, implementation and validation of the next generation user interface, we worked in an iterative way.
 The idea was to create multiple evolutionary prototypes. Each prototype was then presented to the class. Thanks to that method, we were able to create a final product on time and validated its usability.
 
-\subsection{Iteration 1 : problem defined}
+\subsection{Iteration 1 : Problem defined}
 
 The first iteration consisted mainly in sitting in a comfortable room and brainstorming about which next-generation interface we would design. Many ideas had emerged and the one that convinced us the most was to innovate in the field of picture browsing. Indeed, multiple technologies have recently appears on the market and we though they could be use to enhance usability and user experience of such systems.
 The first and main assumption made on behalf of the user is that the user possesses a lot of picture but doesn't have the time to browse or sort them all, which is what we want to solve.
 The added value of our idea compared to existing picture browsers was an intelligence which recognizes effortlessly the content of the user's pictures and an immersive way to browse through them thanks to new technologies: virtual reality and voice recognition.
 
-\subsection{Iteration 2 : requirements defined}
+\subsection{Iteration 2 : Requirements defined}
 
 The second iteration was about planning the realization of the idea for the interface and getting the requirements right. We presented the requirements in the section \ref{requi}. The planning consisted of a Gantt chart with a general idea of the timeline we were going to follow for the next 3 months. Of course, due to unpredictable challenges some parts of it got delayed and some of them were realized quicker than expected.
 
 % insert that gant chart
-\subsection{Iteration 3 : low-fidelity prototype}
+\subsection{Iteration 3 : Low-fidelity prototype}
 
-This iteration was all about making sure the product is feasible and that requirements could be reached by making a low-fidelity prototype with all components working separately.
+This iteration was all about making sure the product was feasible and that the requirements could be reached by making a low-fidelity prototype with all components working separately.
+
 The idea here was to find solution for each of those components :
 \begin{itemize}
-	\item A Neural Network capable of automatically tagging the image,
+	\item A Neural Network capable of automatically tagging the images,
 	\item A framework to support the HTV Vive Virtual reality set,
-	\item A speech recognizer interoperable with the chosen VR framework,
+	\item A speech recognizer compatible with the chosen VR framework,
 \end{itemize}
 
-More information about the technologies used can be find in architecture section \ref{techntechno} .
+More information about the technologies used can be found in the architecture section \ref{techntechno} .
 
-\subsection{Iteration 4 : high fidelity prototype}
+\subsection{Iteration 4 : High fidelity prototype}
 
-The goal of this iteration was to managed to build a working high-fidelity prototype were the main feature of the interface would be there.
-The prototype build at this point was capable of handling voice recognized keywords and showed the corresponding image in the Virtual Reality environment.
+The goal of this iteration was to manage to build a fully-working high-fidelity prototype including the main features of the interface.
+The prototype built at this point was capable of handling voice-recognized keywords as well as showing the corresponding images to the user in the Virtual Reality environment.
 
-\subsection{Iteration 5 : prototype improvement}
+\subsection{Iteration 5 : Prototype improvement}
 
-This iteration focused on user goals and on usability trough improvement of the first high-fidelity prototype. Following users feedback, we changed the way the picture are displayed : instead of showing a "wall" of pictures we surround the user with picture, making a circle of pictures around the user.
-We also added more advanced queries, where a user can do the union and the intersection of subsets (tags) of pictures.
+This iteration focused on user goals and on usability through improvement of the first high-fidelity prototype. Following users feedback, we changed the way the pictures were displayed : instead of showing a "wall" of pictures we decided to surround the user with picture, circling the user with pictures.
+We also added more advanced queries, where a user can do the union and the intersection of subsets of pictures using combination tags.
 
 \subsection{Iteration 6 : final product}
 
 This iteration was about finishing and polishing our user interface. We first added visibility to the features implemented and that a user can possibly use. To do that we added to tag suggestion and selected tag to the screen.
 
-We also added feedback to the user. When he looks a pictures it get slightly bigger making him knows which one is currently selected.
+We also added feedback to the user. When he looks a pictures it gets slightly bigger making him aware of the currently selected .
 
-We also map the Vive "hand" controller to movement inside the interface which are going upward and downward. We also added the possibility to move the image closer or farther by saying those keyword. 
+We also mapped buttons the Vive controller to the up and down movements in the virtual world. We also added the possibility to move the image closer or further by saying the corresponding keywords. 
 
 Finally, we also made the evaluation of the interface presented in \ref{eval}.
 
 \section{Technical : Intelligent Picture Browser}
-The Intelligent Picture Browser is built to work on state of the art technology, in order to offer to the user a new kind of interaction.
+The Intelligent Picture Browser is built to work on state of the art technologies, in order to offer to the user a new kind of interaction.
 It uses Virtual Reality for displaying and partially interacting, a neural network to categorize the pictures and speech recognition for selecting them.
 
 It has a multimodal interface, that involves visualization, speaking and movement.
 Other than interacting with the speech recognition, some commands are linked to the physical controllers of the HTC vive, that permits, in those cases, to have faster interaction.
 
-\subsection{Functionality}
-Functionalities are divided in basic and advanced.
-The first one represent the basis of the application, the second ones are less intuitive operations added to complete the user experience.
-After executing the tagging script, images are categorized by one or more tags, that are considered the most probable for a given picture.
+\subsection{Functionalities}
+Functionalities are divided in two sections: basic and advanced.
+The first one represent the basics of the application, the second ones are less intuitive operations that were added to complete the user experience.
+After executing the tagging script, images are flagged with one or more tags, that are considered the most probable for them.
 
-\paragraph{Basic functionalities:}
-The user can
+\subsubsection{Basic functionalities}
+
+The user can:
 \begin{itemize}
-\item Select pictures querying by their tag
+\item Select pictures using one of their tag
 \item Navigate through the picture shown around him
-\item Select one to see it bigger 
+\item Select a picture to see it bigger 
 \item Look at suggestions of tags.
 \item Open an helper that will explain how to activate the commands
 \end{itemize} 
@@ -126,7 +128,7 @@ The tag suggestions are selected depending on the current shown pictures, trying
 At the beginning, the suggested tags are the most present in all the pictures tagged.
 
 
-\paragraph{Advanced functionalities}
+\subsubsection{Advanced functionalities}
 The user can
 \begin{itemize}
 \item Query different tags via mathematical intersection and union
@@ -141,19 +143,19 @@ Interactions with the applications are possible in four possible modes:
 \item \textbf{Movement} Being in a Virtual Reality, the user can move around, if the space around him allows, and get physically closer to the pictures to analyze them better.
 
 \item \textbf{Vision}
-When a user looks at a picture, that gets automatically selected to allow than to apply advanced functions.
-Whenever he looks on the ground, he will always find suggestions for tags.
+When a user looks at a picture, it gets automatically selected to allow the user to apply advanced functions.
+Whenever he looks at the ground, he will always find suggestions for tags.
 
-\item \textbf{Speech} The user can say a tag, and immediately pictures associated to that tag will be shown.
+\item \textbf{Speech} The user can say a tag, and immediately pictures associated with that tag will be shown.
 When the user says the keyword \texttt{help} a text of help is shown in front of him, so he can read the different commands he can say and execute.
 
 When he says the keyword \texttt{and} or \texttt{or}, followed by a tag, the related mathematical operation will be executed on the set of the currently shown pictures and the set of pictures associated to the newly pronounced tag.
-When he says \texttt{further} or \texttt{closer} the pictures will be zommed in or out according to the keyword said.
+When he says \texttt{further} or \texttt{closer} the pictures are zoomed in or out according to the keyword said.
 
 \item \textbf{Touch} Using the controller of the HTC-Vive the user can toggle different commands:
-Using the back trigger he can rotate of 90 degrees the selected picture, in order to improve its visualization.
+using the back trigger he can rotate of 90 degrees the selected picture, in order to improve its visualization.
 
-Using the buttons up and down of the front pad, he can move up and down inside the pictures that are around me, being able to see also the pictures too far from him.
+Using the buttons up and down of the touchpad, he can move up and down in the cylinder of pictures that surrounds him, being able to see also the pictures too far from him.
 
 \end{enumerate}
 
@@ -171,7 +173,6 @@ We preferred a controller-approach because it gives a better immediate feedback 
 \subsection{Software Technologies} \label{techntechno}
 
 The selected technologies are :
-	\todo{@Bruno are there particular Unity things we downloaded from the unity store for the view?}
 \begin{itemize}
 	\item Google machine learning library TensorFlow for the neural network,
 	\item Unity3D for the HTC Vive Virtual Reality environment.
