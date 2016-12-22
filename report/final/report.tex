@@ -163,7 +163,7 @@ Using the buttons up and down of the touchpad, he can move up and down in the cy
 This means that the user, in order to look at pictures, simply has to rotate.
 If many pictures are shown, they form a sort of cylinder around the user, being displayed in a circular way around him at different height level. That's why it was necessary to add commmands to move up and down.
 
-During the development of the project we tried out different layouts of pictures: in our first prototype, in fact, pictures were shown in a big plane in front of the user. This means that with a big number of pictures, the user would need to move left, right, up and down, since doing only one layers of pictures wouldn't have allowed to see many pictures at the same time.
+During the development of the project we tried out different layouts of pictures: in our first prototype, in fact, pictures were shown in a big plane in front of the user. This means that with a big number of pictures, the user would need to move left, right, up and down, and could only look in the direction of the plan since doing only one layers of pictures wouldn't have allowed to see many pictures at the same time. We also tried different radius for the pictures circle and different curving shapes.
 
 Movements left-right are allowed in virtual reality, since the user can move and the sensor will track his movement. But big sets of pictures would have meant that the user had to move probably way over its possible space around him, since the HTC Vive has physical limitations due to the cable attached to the computer and to the room itself.
 This is why we preferred to have the user surrounded by pictures, offering two buttons to move up and down that we would have needed to add anyway.
@@ -182,9 +182,9 @@ The selected technologies are :
 	\item \texttt{Newtonsoft.Json} library to parse the Json in the C$\#$ environment.
 \end{itemize}
 
-\todo{Maybe add a some lines on tensorflow? @Pierre}
-% NN for tag -> json
+As said above, the pictures tagging is done automatically using a neural network. More precisely the tagging is done using a deep convolutional neural network with a selected pre-trained model on ImageNet \todo{http://www.image-net.org/}. The selected model, Inception-v3,\todo{ref needed} can classify entire pictures library into 1000 classes such as for example cliff, seashore, dishwasher, leopard, ... Each picture given as input to the network will give as an output a vector of probability corresponding to the probability to find each of the 1000 class in the pictures. Then the idea is to select the ones with the higher probabilities.
 
+\todo{does the NN paragraph is at the right place?}
 
 \subsection{Architecture}
 
