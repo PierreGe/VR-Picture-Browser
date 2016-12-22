@@ -175,6 +175,7 @@ We preferred a controller-approach because it gives a better immediate feedback 
 The selected technologies are :
 \begin{itemize}
 	\item Google machine learning library TensorFlow for the neural network,
+	\item SteamVR library to make Unity3D work with the HTC Vive,
 	\item Unity3D for the HTC Vive Virtual Reality environment.
 	\item C$\#$ on \textit{mono} reduced set of Microsoft .net framework.
 	\item Microsoft-Unity windows speech recognition library (\texttt{Unity.Windows.Speech})for the voice commands.
@@ -190,18 +191,18 @@ The selected technologies are :
 
 % scripts used? 
 % internal representation of the images (dictionary, paths, tags)
-% Utinty interface <- json
+% Uinty interface <- json
 % unity interface <- win10 speech recognizer
 
-The project is written using Unity, and is divided in two parts: the C$\#$ Unity \textit{GameObject} scripts and the C$\#$ application logic.
+The project is written using Unity3D, and is divided in two parts: the C$\#$ Unity display scripts and the C$\#$ application logic.
 
 \subsubsection{Unity Scripts}
 \textit{Files are located in src/ImageDisplayer/ImageDisplayer/Assets.}
 
-The unity scrips handle the visualization and the interaction with the user. 
+The Unity scripts handle the visualization and the interaction with the user. 
 There are three scripts:
 \begin{itemize}
-\item\texttt{Main.cs} handles the scene, all the game objects, the disposition of the planes, the texturing and all the commands.
+\item\texttt{Main.cs} handles the scene, all the game objects, the disposition of the pictures, the texturing and all the commands.
 It has a specific method for each command, and it handles the current pictures, deleting them from memory when they are not shown anymore in order to prevent memory leaks.
 \item \texttt{DictationScript.cs} initializes a grammar with the tags and the keywords. With that it loads a \texttt{KeywordRecognizer} that listens to the told keywords. When recognized, it will call the right method on the \texttt{Main} script.
 If the recognized word is one of the commands-keyword, it will call the relative functionality in the main.
@@ -243,20 +244,20 @@ Those classes are not part of this project.
 
 % require a monster computer
 
-We were faced with many challenges, mainly because nobody in the group had previous experience with Unity nor C$\#$.
+We faced many challenges, mainly because nobody in the group had previous experience with Unity nor C$\#$.
 Unity uses a reduced set of the \texttt{Microsoft .net Framework 3.0}, so many libraries where incompatible, or some functionalities of C$\#$ couldn't be used.
 Furthermore, Unity is not compatible between different versions, so we all needed to have the exact same release, and this got us into many troubles and time loss before we found out what was the problem.
 
-There is poor software interoperability between unity and its library, and we were forced to use the Microsoft Speech Recognition Library, that works only on Windows. 
-Since we are all linux or mac users the initial goal for us was to make the application run on any of those machine, but Windows was needed.
+There is poor software interoperability between Unity and its library, and we were forced to use the Microsoft Speech Recognition Library, that works only on Windows. 
+Since we are all Linux or mac users the initial goal for us was to make the application run on any of those machine, but Windows was needed.
 For those of us that didn't have Windows 10 an update was required, since the libraries work only with that version of windows.
 
 The only working speech recognition library we found works only on keywords. This means that you cannot speak naturally to it, and tags need to be initialized to a specific grammar. We used all the possible keywords given by \texttt{Tensorflow}, but when no word is recognized there is no feedback for the user to know if he just misspelled or if that tag is not present in the system.
 We also had problems with our accents, since we all are not native English speakers and we all have our different accent.
 
-Working with Unity3D also made us face lack of documentation, since it's new technology and many library or components don't have a really complete documentation, and many things had to be found by ''trying''.
+Working with Unity3D along with SteamVR also made us face a lack of documentation, since it's new technology and many library or components don't have a really complete documentation, and many things had to be found by experimenting.
 
-Finally, in order to run our application using the HTC Vive headset, we needed to use a really modern and powerful desktop computer, because good laptops nor desktop can render the VR environment smoothly.
+Finally, in order to run our application using the HTC Vive headset, we needed to use a really modern and powerful desktop computer, because our laptops couldn't render the VR environment smoothly.
 
 \section{Evaluation} \label{eval}
 
@@ -296,8 +297,8 @@ The evaluation is a discount evaluation of 3 users using Nielsen Heuristic. Acco
 Before ending this report, we would really like to thanks the VUB Soft Lab for lending us the HTC Vive needed for the realization of this project.
 We also would like to thanks the participant of the evaluation and all that give us feedback during the making of this Next-gen UI.
 
-\section{Conclusion}
-
+\section{Conclusion and Future work}
+We proposed IPB, an intelligent 
 
 \end{document}
 
