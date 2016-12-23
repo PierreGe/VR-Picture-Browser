@@ -10,6 +10,7 @@
 \usepackage{float}
 \usepackage{hyperref} 
 \usepackage{afterpage}
+\usepackage{pdfpages}
 \author{Pierre Gerard - Matteo Marra - Bruno Rocha Pereira}
 \title{Intelligent Picture Browser \\ - \\Given One \\  - \\Requirements and Analysis report}
 \date{December 19, 2016}
@@ -254,7 +255,11 @@ The rest of the tags are ignored.
 It uses the \texttt{Newtonsoft.Json} library to ease the parsing of the JSON.
 \item \texttt{PicturesManager.cs} manages the set of pictures, allowing to add and query the set. The set of pictures is stored as dictionary, with the tag string as key and the \texttt{Picture} object as value.
 \end{itemize}
-\todo{maybe add UML}
+
+\paragraph{UML Diagram}
+In the next page you can find an UML diagram of our architecture.
+On the top part you can see the Unity scripts, on the bottom part the Manager.
+\includepdf[scale=0.8]{umlDiagram.pdf}
 
 \paragraph{Note: External Source Code}
 In the source code are also present classes of \texttt{SteamVR}, that are necessary to deploy on the HTC Vive.
