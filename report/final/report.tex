@@ -6,10 +6,12 @@
 \usepackage{todonotes}
 \usepackage{lscape}
 \usepackage{cite}
-\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{hyperref} 
 \usepackage{afterpage}
 \author{Pierre Gerard - Matteo Marra - Bruno Rocha Pereira}
-\title{Given One \\ - \\Intelligent Picture Browser \\  - \\Requirements and Analysis report}
+\title{Intelligent Picture Browser \\ - \\Given One \\  - \\Requirements and Analysis report}
 \date{December 19, 2016}
 
 \begin{document}
@@ -25,6 +27,12 @@ Among those devices, Virtual Reality sets are spreading as they get more afforda
 Our brainstorming led us to imagine a future where we could use Virtual Reality on a common basis. We thought about what an user would like to have which doesn't exist yet, and how to implement it to make the user feel comfortable in this totally new environment.
 
 The system will offer the user a collection of pictures in a Virtual Reality environment, allowing him to browse them in a smart way.
+
+\begin{figure}[H]
+  \label{fig:vive}
+  \centering
+  \includegraphics[width=0.4\textwidth]{img/vive.jpg}
+\end{figure}
 
 \section{Problem to be solved}
 
@@ -92,7 +100,7 @@ The prototype built at this point was capable of handling voice-recognized keywo
 This iteration focused on user goals and on usability through improvement of the first high-fidelity prototype. Following users feedback, we changed the way the pictures were displayed : instead of showing a "wall" of pictures we decided to surround the user with picture, circling the user with pictures.
 We also added more advanced queries, where a user can do the union and the intersection of subsets of pictures using combination tags.
 
-\subsection{Iteration 6 : final product}
+\subsection{Iteration 6 : Final product}
 
 This iteration was about finishing and polishing our user interface. We first added visibility to the features implemented and that a user can possibly use. To do that we added to tag suggestion and selected tag to the screen.
 
@@ -116,6 +124,12 @@ After executing the tagging script, images are flagged with one or more tags, th
 
 \subsubsection{Basic functionalities}
 
+\begin{figure}[H]
+  \label{fig:1tag}
+  \centering
+  \includegraphics[width=\textwidth]{img/SimpleTag.jpg}
+\end{figure}
+
 The user can:
 \begin{itemize}
 \item Select pictures using one of their tag
@@ -129,6 +143,13 @@ At the beginning, the suggested tags are the most present in all the pictures ta
 
 
 \subsubsection{Advanced functionalities}
+
+\begin{figure}[H]
+  \label{fig:3tag}
+  \centering
+  \includegraphics[width=0.8\textwidth]{img/TripleTag.jpg}
+\end{figure}
+
 The user can
 \begin{itemize}
 \item Query different tags via mathematical intersection and union
@@ -138,6 +159,14 @@ The user can
 \end{itemize}
 
 \subsection{Interactions}
+
+\begin{figure}[H]
+  \label{fig:help}
+  \centering
+  \includegraphics[width=0.8\textwidth]{img/interaction.png}
+\end{figure}
+
+
 Interactions with the applications are possible in four possible modes:
 \begin{enumerate}
 \item \textbf{Movement} Being in a Virtual Reality, the user can move around, if the space around him allows, and get physically closer to the pictures to analyze them better.
@@ -183,9 +212,10 @@ The selected technologies are :
 	\item \texttt{Newtonsoft.Json} library to parse the Json in the C$\#$ environment.
 \end{itemize}
 
-As said above, the pictures tagging is done automatically using a neural network. More precisely the tagging is done using a deep convolutional neural network with a selected pre-trained model on ImageNet \todo{http://www.image-net.org/}. The selected model, Inception-v3,\todo{ref needed} can classify entire pictures library into 1000 classes such as for example cliff, seashore, dishwasher, leopard, ... Each picture given as input to the network will give as an output a vector of probability corresponding to the probability to find each of the 1000 class in the pictures. Then the idea is to select the ones with the higher probabilities.
+As said above, the VR will be built using the game engine \textit{Unity3D} \footnote{https://unity3d.com/} for the application graphics and code. It has been chosen by considering different scientific papers such as \cite{Mazuryk1996} and \cite{calado2013virtual}.
 
-\todo{does the NN paragraph is at the right place?}
+The pictures tagging is done automatically using a neural network. More precisely the tagging is done using TensorFlow \cite{abadi2016tensorflow}, a deep convolutional neural network, with a selected pre-trained model on ImageNet \footnote{http://www.image-net.org/}. The selected model, Inception-v3,\todo{ref needed} can classify entire pictures library into 1000 classes such as for example cliff, seashore, dishwasher, leopard, ... Each picture given as input to the network will give as an output a vector of probability corresponding to the probability to find each of the 1000 class in the pictures. Then the idea is to select the ones with the higher probabilities.
+
 
 \subsection{Architecture}
 
@@ -309,13 +339,22 @@ User experience refers to the evaluator emotions and attitudes about using our i
 
 \subsubsection{Conducting evaluation}
 
-This user experience evaluation strictly follows the one given by the assistant during the lab session for the spoon.
+This user experience evaluation strictly follows the one given by the assistant during the lab session for the spoon. We used some help from \cite{laugwitz2008construction} to conduct it properly. This evaluation give us a score between -3 and 3 for the following keypoints:
+\begin{itemize}
+	\item Attractiveness	\item Perspicuity	\item Novelity	\item Stimulation	\item Dependability
+\end{itemize}
 
-\todo{ici}
+It was done just after the usability evaluation. There are 5 evaluators in total so we have to keep in mind that the result could be not statically significant.
+
 \subsubsection{Results}
 
-% graph
-\todo{ici}
+
+\begin{figure}[H]
+   \centering
+   \includegraphics[width=0.99\textwidth]{img/ux.png}
+\end{figure}
+
+The result shown on the bar graph above tends to best part of the interface is its attractiveness and a point that could be improved is its perspicuity. The insight behind this graph is could be described as follow :
 
 \begin{itemize}
 	\item It’s globally enjoyable/pleasing
@@ -335,42 +374,13 @@ We also would like to thank participants of the evaluation and everyone who gave
 \section{Conclusion and Future work}
 We proposed IPB, an intelligent picture browser that allows the user to see pictures corresponding to tags all around him in a VR environment. This was accomplished in several iterations using state-of-the-art technologies. The outcome is fully functional and was tested against different users with different accents to assess their user experience as well as the application usability. The evaluation was mostly positive but flaws were discovered thanks to the feedback we received and most of them were corrected. However, the application could be, in the future, made easier to learn as well as faster to run.
 \pagebreak
-\section{Pictures}
 
-\begin{figure}[h]
-  \label{fig:help}
-  \includegraphics[width=\textwidth]{img/Help.jpg}
-\end{figure}
-
-\begin{figure}[h]
-  \label{fig:cntr}
-  \includegraphics[width=\textwidth]{img/Controllers.jpg}
-\end{figure}
-
-\begin{figure}[h]
-  \label{fig:1tag}
-  \includegraphics[width=\textwidth]{img/SimpleTag.jpg}
-\end{figure}
-
-\begin{figure}[h]
-  \label{fig:3tag}
-  \includegraphics[width=\textwidth]{img/TripleTag.jpg}
-\end{figure}
-
-\begin{figure}[h]
-  \label{fig:suggestions}
-  \includegraphics[width=\textwidth]{img/Start.jpg}
-\end{figure}
-
-\begin{figure}[h]
-  \label{fig:vive}
-  \includegraphics[width=\textwidth]{img/vive.jpg}
-\end{figure}
+\bibliographystyle{ieeetr}
+\bibliography{biblio}
 
 \end{document}
 
 
-\end{document}
 
 
 
