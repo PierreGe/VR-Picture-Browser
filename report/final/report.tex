@@ -212,9 +212,9 @@ The selected technologies are :
 	\item \texttt{Newtonsoft.Json} library to parse the Json in the C$\#$ environment.
 \end{itemize}
 
-\subsubsection{Automatic tagging} 
+As said above, the VR will be built using the game engine \textit{Unity3D} \footnote{https://unity3d.com/} for the application graphics and code. It has been chosen by considering different scientific papers such as \cite{Mazuryk1996} and \cite{calado2013virtual}.
 
-As said above, the pictures tagging is done automatically using a neural network. More precisely the tagging is done using TensorFlow \cite{abadi2016tensorflow}, a deep convolutional neural network, with a selected pre-trained model on ImageNet \footnote{http://www.image-net.org/}. The selected model, Inception-v3,\todo{ref needed} can classify entire pictures library into 1000 classes such as for example cliff, seashore, dishwasher, leopard, ... Each picture given as input to the network will give as an output a vector of probability corresponding to the probability to find each of the 1000 class in the pictures. Then the idea is to select the ones with the higher probabilities.
+The pictures tagging is done automatically using a neural network. More precisely the tagging is done using TensorFlow \cite{abadi2016tensorflow}, a deep convolutional neural network, with a selected pre-trained model on ImageNet \footnote{http://www.image-net.org/}. The selected model, Inception-v3,\todo{ref needed} can classify entire pictures library into 1000 classes such as for example cliff, seashore, dishwasher, leopard, ... Each picture given as input to the network will give as an output a vector of probability corresponding to the probability to find each of the 1000 class in the pictures. Then the idea is to select the ones with the higher probabilities.
 
 
 \subsection{Architecture}
@@ -339,7 +339,7 @@ User experience refer to the evaluator emotions and attitudes about using our in
 
 \subsubsection{Conducting evaluation}
 
-This user experience evaluation strictly follows the one given by the assistant during the lab session for the spoon. This evaluation give us a score between -3 and 3 for the following keypoints:
+This user experience evaluation strictly follows the one given by the assistant during the lab session for the spoon. We used some help from \cite{laugwitz2008construction} to conduct it properly. This evaluation give us a score between -3 and 3 for the following keypoints:
 \begin{itemize}
 	\item Attractiveness	\item Perspicuity	\item Novelity	\item Stimulation	\item Dependability
 \end{itemize}
