@@ -6,7 +6,9 @@
 \usepackage{todonotes}
 \usepackage{lscape}
 \usepackage{cite}
-\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{hyperref} 
 \usepackage{afterpage}
 \author{Pierre Gerard - Matteo Marra - Bruno Rocha Pereira}
 \title{Given One \\ - \\Intelligent Picture Browser \\  - \\Requirements and Analysis report}
@@ -138,6 +140,14 @@ The user can
 \end{itemize}
 
 \subsection{Interactions}
+
+\begin{figure}[H]
+  \label{fig:help}
+  \centering
+  \includegraphics[width=\textwidth]{img/interaction.png}
+\end{figure}
+
+
 Interactions with the applications are possible in four possible modes:
 \begin{enumerate}
 \item \textbf{Movement} Being in a Virtual Reality, the user can move around, if the space around him allows, and get physically closer to the pictures to analyze them better.
@@ -309,13 +319,22 @@ User experience refer to the evaluator emotions and attitudes about using our in
 
 \subsubsection{Conducting evaluation}
 
-This user experience evaluation strictly follows the one given by the assistant during the lab session for the spoon.
+This user experience evaluation strictly follows the one given by the assistant during the lab session for the spoon. This evaluation give us a score between -3 and 3 for the following keypoints:
+\begin{itemize}
+	\item Attractiveness	\item Perspicuity	\item Novelity	\item Stimulation	\item Dependability
+\end{itemize}
 
-\todo{ici}
+It was done just after the usability evaluation. There are 5 evaluators in total so we have to keep in mind that the result could be not statically significant.
+
 \subsubsection{Results}
 
-% graph
-\todo{ici}
+
+\begin{figure}[H]
+   \centering
+   \includegraphics[width=0.99\textwidth]{img/ux.png}
+\end{figure}
+
+The result shown on the bar graph above tends to best part of the interface is its attractiveness and a point that could be improved is its perspicuity. The insight behind this graph is could be described as follow :
 
 \begin{itemize}
 	\item It’s globally enjoyable/pleasing
@@ -337,33 +356,39 @@ We proposed IPB, an intelligent picture browser that allows the user to see pict
 \pagebreak
 \section{Pictures}
 
-\begin{figure}[h]
+\begin{figure}[H]
   \label{fig:help}
+  \centering
   \includegraphics[width=\textwidth]{img/Help.jpg}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
   \label{fig:cntr}
+  \centering
   \includegraphics[width=\textwidth]{img/Controllers.jpg}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
   \label{fig:1tag}
+  \centering
   \includegraphics[width=\textwidth]{img/SimpleTag.jpg}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
   \label{fig:3tag}
+  \centering
   \includegraphics[width=\textwidth]{img/TripleTag.jpg}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
   \label{fig:suggestions}
+  \centering
   \includegraphics[width=\textwidth]{img/Start.jpg}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
   \label{fig:vive}
+  \centering
   \includegraphics[width=\textwidth]{img/vive.jpg}
 \end{figure}
 
